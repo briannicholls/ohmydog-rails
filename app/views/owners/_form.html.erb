@@ -1,0 +1,65 @@
+<table>
+
+<%= form_for @owner do |f| %>
+<tr>
+<td><%= f.label :fname, 'First Name' %></td>
+<td><%= f.text_field :fname %></td>
+</tr>
+
+<tr>
+<td><%= f.label :lname, 'Last Name' %></td>
+<td><%= f.text_field :lname %></td>
+</tr>
+
+<tr>
+<td><%= f.label :email, 'Email' %></td>
+<td><%= f.text_field :email %></td>
+</tr>
+
+<tr>
+<td><%= f.label :phone, 'Phone #' %></td>
+<td><%= f.telephone_field :phone %></td>
+</tr>
+
+<tr>
+<td><%= f.label :address, 'Street Address' %></td>
+<td><%= f.text_field :address %></td>
+</tr>
+
+<tr>
+<td><%= f.label :zip_code, 'Zip Code' %></td>
+<td><%= f.text_field :zip_code %></td>
+</tr>
+
+<tr>
+<td><%= f.label :apartment_number, 'Apartment #' %></td>
+<td><%= f.text_field :apartment_number %></td>
+</tr>
+
+<tr>
+<td><%= f.label :lockbox_code, 'Lockbox Code' %></td>
+<td><%= f.text_field :lockbox_code %></td>
+</tr>
+
+<tr>
+<td><%= f.label :door_code, 'Door Code' %></td>
+<td><%= f.text_field :door_code %></td>
+</tr>
+
+<tr>
+<td><%= f.label :entry_instructions, 'Entry Instructions' %></td>
+<td><%= f.text_field :entry_instructions %></td>
+</tr>
+
+<tr>
+<td><%= f.label :phone2, 'Secondary Phone #' %></td>
+<td><%= f.text_field :phone2 %></td>
+</tr>
+
+<tr>
+<td></td><td><%= f.submit %></td>
+</tr>
+
+<% end %>
+
+</table>

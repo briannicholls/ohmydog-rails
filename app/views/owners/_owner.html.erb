@@ -1,0 +1,41 @@
+<h1><%= @owner.name %></h1>
+
+<table class="show owner">
+  <tr>
+    <td>Email:</td>
+    <td><%= @owner.email %></td>
+  </tr>
+
+  <tr>
+    <td>Primary Phone:</td>
+    <td><%= number_to_phone @owner.phone %></td>
+  </tr>
+
+  <tr>
+    <td>Secondary Phone:</td>
+    <td><%= number_to_phone @owner.phone2 %></td>
+  </tr>
+
+  <tr>
+    <td>Address:</td>
+    <td>
+      <%= @owner.address %> <br>
+      <%= @owner.zip_code %> <br>
+      <%= link_to 'View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank' %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>Apartment #:</td>
+    <td><%= @owner.apartment_number %></td>
+  </tr>
+
+  <tr>
+    <td>Created On:</td>
+    <td><%= @owner.created_at %></td>
+  </tr>
+
+  <tr>
+    <td></td><td><%= link_to 'Edit owner', edit_owner_path(@owner) %></td>
+  </tr>
+</table>

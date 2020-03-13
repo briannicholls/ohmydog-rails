@@ -1,0 +1,46 @@
+<table class="form">
+
+<%= form_for @pet do |f| %>
+
+<tr>
+  <td><%= f.label :owner_id, 'Owner' %></td>
+  <td><%= collection_select :pet, :owner_id, Owner.all, :id, :name, {include_blank: true} %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :name, "Name" %></td>
+  <td><%= f.text_field :name %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :breed, "breed" %></td>
+  <td><%= f.text_field :breed %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :birthday, "birthday" %></td>
+  <td><%= f.date_select :birthday %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :temperament, "temperament" %></td>
+  <td><%= f.text_area :temperament %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :notes, "notes" %></td>
+  <td><%= f.text_area :notes %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :appearance, "appearance" %></td>
+  <td><%= f.text_area :appearance %></td>
+</tr>
+
+<tr>
+  <td></td><td><%= f.submit %></td>
+</tr>
+
+<% end %>
+
+</table>

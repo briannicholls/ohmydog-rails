@@ -1,0 +1,23 @@
+<table class="show pet">
+
+  <tr>
+    <td>Breed:</td><td><%= @pet.breed %></td>
+  </tr>
+
+  <tr>
+    <td>birthday</td><td><%= @pet.birthday %></td>
+  </tr>
+
+  <tr>
+    <td>Notes:</td><td><%= @pet.notes %></td>
+  </tr>
+
+  <tr>
+    <td>Appearance:</td><td><%= @pet.appearance %></td>
+  </tr>
+
+  <tr>
+    <td></td><td><%= link_to 'Edit Pet', edit_pet_path(@pet) %></td>
+  </tr>
+
+</table>

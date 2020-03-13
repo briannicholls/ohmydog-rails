@@ -1,0 +1,46 @@
+<table class="form">
+<%= form_for @user do |f| %>
+<tr>
+<td><%= f.label :fname, 'First Name' %></td>
+<td><%= f.text_field :fname %></td>
+</tr>
+
+<tr>
+<td><%= f.label :lname, 'Last Name' %></td>
+<td><%= f.text_field :lname %></td>
+</tr>
+
+<tr>
+<td><%= f.label :email, 'Email' %></td>
+<td><%= f.text_field :email %></td>
+</tr>
+
+<tr>
+<td><%= f.label :phone, 'Phone #' %></td>
+<td><%= f.telephone_field :phone %></td>
+</tr>
+
+<tr>
+  <td><%= f.label :role, 'Role' %></td>
+  <td>
+    <%= radio_button :user, :role, 'customer'  %>Customer <br>
+    <%= radio_button :user, :role, 'employee'  %>Employee <br>
+    <%= radio_button :user, :role, 'admin'  %>Administrator <br>
+  </td>
+</tr>
+
+<tr>
+<td><%= f.label :password, 'Password' %></td>
+<td><%= f.password_field :password %></td>
+</tr>
+
+<tr>
+<td><%= f.label :password_confirmation, 'Confirm Password' %></td>
+<td><%= f.password_field :password_confirmation %></td>
+</tr>
+
+<tr>
+  <td></td><td><%= f.submit %></td>
+</tr>
+<% end %>
+</table>

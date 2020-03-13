@@ -1,0 +1,4 @@
+<h1><%= @pet.name %></h1>
+<%= render 'pet' %>
+
+<%= render 'owners/owner' if @pet.owner %>
