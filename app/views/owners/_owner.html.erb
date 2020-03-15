@@ -17,6 +17,11 @@
   </tr>
 
   <tr>
+    <td>Neighborhood:</td>
+    <td><%= @owner.neighborhood %></td>
+  </tr>
+
+  <tr>
     <td>Address:</td>
     <td>
       <%= @owner.address %> <br>
@@ -29,6 +34,20 @@
     <td>Apartment #:</td>
     <td><%= @owner.apartment_number %></td>
   </tr>
+
+  <% if @owner.door_code %>
+  <tr>
+    <td>Door Code:</td>
+    <td><%= @owner.door_code %></td>
+  </tr>
+  <% end %>
+
+  <% if @owner.lockbox_code %>
+  <tr>
+    <td>Lockbox Code:</td>
+    <td><%= @owner.lockbox_code %></td>
+  </tr>
+  <% end %>
 
   <tr>
     <td>Entry Instructions:</td>
