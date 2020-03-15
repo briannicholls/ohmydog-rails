@@ -36,14 +36,14 @@
   end
 
   Pet.all.each do |pet|
-    start_time = DateTime.parse Faker::Date.forward(days: 23)
+    start_time = Faker::Date.forward(days: 23)
 
     pet.walks.build(
       window_start: start_time.strftime('%Y-%m-%dT%H%M'),
       window_end: start_time + (1/24),
       notes: Faker::Movies::Lebowski.quote,
       walk_type: '30 min'
-    )
+    ).save
   end
 
 end
