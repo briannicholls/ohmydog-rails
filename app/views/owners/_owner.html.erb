@@ -1,4 +1,4 @@
-<h1><%= @owner.name %></h1>
+<h1><%= link_to @owner.name, owner_path(@owner) %></h1>
 
 <table class="show owner">
   <tr>
@@ -28,6 +28,11 @@
   <tr>
     <td>Apartment #:</td>
     <td><%= @owner.apartment_number %></td>
+  </tr>
+
+  <tr>
+    <td>Entry Instructions:</td>
+    <td><%= @owner.entry_instructions %></td>
   </tr>
 
   <tr>
