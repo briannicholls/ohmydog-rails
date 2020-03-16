@@ -1,0 +1,10 @@
+<h1>Walks</h1>
+<ul>
+
+<% @walks.each do |walk| %>
+
+<li><%= link_to walk.pet.name, walk_path(walk) %></li>
+
+<% end %>
+
+</ul>

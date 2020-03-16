@@ -1,0 +1,43 @@
+<h1>Walk Details</h1>
+
+<table class="show walk">
+
+<tr>
+  <td>Pet name:</td>
+  <td><%= @walk.pet.name %></td>
+</tr>
+
+<tr>
+  <td>Pickup Window</td>
+  <td><%= @walk.pickup_window %></td>
+</tr>
+
+<tr>
+  <td>Walk Notes:</td>
+  <td><%= @walk.notes %></td>
+</tr>
+
+<tr>
+  <td>Pet Notes:</td>
+  <td><%= @walk.pet.notes %></td>
+</tr>
+
+<tr>
+  <td>Walk Type:</td>
+  <td><%= @walk.walk_type %></td>
+</tr>
+
+<% if @walk.completed? %>
+
+<tr>
+  <td>Completed By:</td>
+  <td><%= @walk.walker %></td>
+</tr>
+
+<% end %>
+
+<tr>
+  <td></td><td><%= link_to 'Edit Walk', edit_walk_path(@walk) %></td>
+</tr>
+
+</table>
