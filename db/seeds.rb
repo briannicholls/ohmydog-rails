@@ -20,30 +20,29 @@
     phone: Faker::PhoneNumber.phone_number,
     fname: Faker::Name.first_name,
     lname: Faker::Name.last_name,
-    email: "email#{i}@email.com"
+    email: Faker::Internet.email
   )
+end
 
-  Owner.all.each do |owner|
-    owner.pets.build(
-      name: Faker::Cannabis.strain,
-      breed: Faker::Creature::Dog.breed,
-      gender: Faker::Creature::Dog.gender,
-      appearance: Faker::Creature::Dog.meme_phrase,
-      notes: Faker::Creature::Dog.age,
-      temperament: Faker::Creature::Dog.sound,
-      birthday: Faker::Date.birthday(min_age: 0, max_age: 15).strftime('%Y-%m-%dT%H%M')
-    ).save
-  end
+Owner.all.each do |owner|
+  owner.pets.build(
+    name: Faker::Cannabis.strain,
+    breed: Faker::Creature::Dog.breed,
+    gender: Faker::Creature::Dog.gender,
+    appearance: Faker::Creature::Dog.meme_phrase,
+    notes: Faker::Creature::Dog.age,
+    temperament: Faker::Creature::Dog.sound,
+    birthday: Faker::Date.birthday(min_age: 0, max_age: 15).strftime('%Y-%m-%dT%H%M')
+  ).save
+end
 
-  Pet.all.each do |pet|
-    start_time = Faker::Date.forward(days: 23)
+Pet.all.each do |pet|
+  start_time = Faker::Date.forward(days: 23)
 
-    pet.walks.build(
-      window_start: start_time.strftime('%Y-%m-%dT%H%M'),
-      window_end: start_time + (1/24),
-      notes: Faker::Movies::Lebowski.quote,
-      walk_type: '30 min'
-    ).save
-  end
-
+  pet.walks.build(
+    window_start: start_time.strftime('%Y-%m-%dT%H%M'),
+    window_end: start_time + (1/24),
+    notes: Faker::Movies::Lebowski.quote,
+    walk_type: '30 min'
+  ).save
 end
