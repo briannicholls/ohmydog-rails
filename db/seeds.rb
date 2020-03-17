@@ -9,15 +9,15 @@
 10.times.with_index do |i|
 
   Owner.create(
-    address: Faker::Address.street_name,
+    address: Faker::Address.street_address,
     apartment_number: Faker::Address.secondary_address,
     zip_code: Faker::Address.zip_code,
     door_code: Faker::Address.building_number,
     lockbox_code: Faker::Address.building_number,
     entry_instructions: Faker::ChuckNorris.fact,
     neighborhood: Faker::Address.community,
-    phone2: Faker::PhoneNumber.phone_number,
-    phone: Faker::PhoneNumber.phone_number,
+    phone2: Faker::PhoneNumber.cell_phone,
+    phone: Faker::PhoneNumber.cell_phone,
     fname: Faker::Name.first_name,
     lname: Faker::Name.last_name,
     email: Faker::Internet.email
