@@ -29,3 +29,4 @@ TODO:
 - add image upload for pets
 - collection autofill for walks/new view
 - add products/rate class? (30 min walk, etc.)
+- define 'customer-only' actions
