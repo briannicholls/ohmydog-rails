@@ -1,0 +1,28 @@
+<h1>Log In</h1>
+
+<table class="form">
+
+<%= form_tag :login %>
+<tr>
+  <td><%= label_tag :email %></td>
+  <td><%= text_field_tag :email %></td>
+</tr>
+
+<tr>
+  <td><%= label_tag :password %></td>
+  <td><%= password_field_tag :password %></td>
+</tr>
+
+<tr>
+  <td></td><td><%= submit_tag 'Submit' %></td>
+</tr>
+
+<tr>
+  <td>Or:</td>
+</tr>
+
+<tr>
+  <td colspan="2"><%= link_to 'Log In With Google', '/auth/google_oauth2' %></td>
+</tr>
+
+</table>
