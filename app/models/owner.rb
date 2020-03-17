@@ -1,5 +1,5 @@
 class Owner < ApplicationRecord
-  has_many :pets
+  has_many :pets, dependent: :nullify
   has_many :walks, through: :pets
 
   def name
