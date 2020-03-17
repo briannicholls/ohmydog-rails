@@ -30,6 +30,11 @@ class WalksController < ApplicationController
     end
   end
 
+  def destroy
+    walk = Walk.find params[:walk_id]
+    walk.delete
+  end
+
   private
 
   def walk_params
