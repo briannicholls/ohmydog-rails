@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'bcrypt', '~> 3.1.7'
 gem 'pry'
 gem 'faker'
+gem "combined_time_select", "~> 2.0.0"
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
