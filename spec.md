@@ -30,6 +30,6 @@ TODO:
 - collection autofill for walks/new view
 - add products/rate class? (30 min walk, etc.)
 - define 'customer-only' actions
-- use scope method for showing today's walks
 - nested form for pets/walk, add option for recurring walks
 - validate walks date
+- nested show for Pet in Walk show
