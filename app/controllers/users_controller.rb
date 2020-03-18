@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :redirect_if_not_logged_in, except: [:new, :create]
 
   def index
-    @users = User.all
+    @users = User.all.order(:fname)
   end
 
   def new
