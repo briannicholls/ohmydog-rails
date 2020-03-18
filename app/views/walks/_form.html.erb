@@ -12,12 +12,22 @@
 
 <tr>
   <td><%= f.label :window_start %></td>
-  <td><%= f.time_select :window_start, {ampm: true, minute_step: 15} %></td>
+  <td><%= f.time_select :window_start,
+                        combined: true,
+                        default: Time.now,
+                        minute_step: 15,
+                        start_hour: 8,
+                        end_hour: 22 %></td>
 </tr>
 
 <tr>
   <td><%= f.label :window_end %></td>
-  <td><%= f.time_select :window_end, {ampm: true, minute_step: 15} %></td>
+  <td><%= f.time_select :window_end,
+                        combined: true,
+                        default: Time.now,
+                        minute_step: 15,
+                        start_hour: 8,
+                        end_hour: 22 %></td>
 </tr>
 
 <tr>

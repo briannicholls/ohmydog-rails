@@ -8,6 +8,7 @@ class WalksController < ApplicationController
   end
 
   def create
+    binding.pry
     @walk = Walk.create(walk_params)
     @walk.persisted? ? redirect_to(walk_path(@walk)) : render(:new)
   end
