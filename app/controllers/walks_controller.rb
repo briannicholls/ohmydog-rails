@@ -1,6 +1,8 @@
 class WalksController < ApplicationController
+  before_action :redirect_if_not_logged_in
+
   def index
-    @walks ||= Walk.today
+    @walks ||= Walk.today.order(:window_start)
   end
 
   def new
@@ -9,7 +11,12 @@ class WalksController < ApplicationController
 
   def create
     binding.pry
+    3.times.with_index do |i|
+      params['walk']["window_start(#{i+1}i)"] = params['walk']["date(#{i+1}i)"]
+      params['walk']["window_end(#{i+1}i)"] = params['walk']["date(#{i+1}i)"]
+    end
     @walk = Walk.create(walk_params)
+    binding.pry
     @walk.persisted? ? redirect_to(walk_path(@walk)) : render(:new)
   end
 
@@ -38,7 +45,7 @@ class WalksController < ApplicationController
   end
 
   def all
-    @walks = Walk.all
+    @walks = Walk.all.order(:window_start)
     render :index
   end
 
