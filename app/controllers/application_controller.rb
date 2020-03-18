@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
 
   def logged_in?
-    !!session[:user_id]
+    !!(session[:user_id] && User.exists?(session[:user_id]))
   end
   helper_method :logged_in?
 
