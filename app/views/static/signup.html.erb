@@ -1,7 +1,7 @@
 <h1>Create Account</h1>
 
+<%= form_for @user do |f| %>
 <table class="form">
-  <%= form_for @user do |f| %>
 
   <tr>
     <td><%= f.label :fname, 'First Name' %></td>
@@ -32,9 +32,8 @@
     <td></td><td><%= f.submit %></td>
   </tr>
 
-  <% end %>
-
 </table>
+<% end %>
 
 <p>Or</p>
 
