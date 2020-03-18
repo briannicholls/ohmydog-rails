@@ -1,6 +1,6 @@
-<table>
-
 <%= form_for @owner do |f| %>
+<table class="form">
+
 <tr>
 <td><%= f.label :fname, 'First Name' %></td>
 <td><%= f.text_field :fname %></td>
@@ -60,6 +60,5 @@
 <td></td><td><%= f.submit %></td>
 </tr>
 
-<% end %>
-
 </table>
+<% end %>

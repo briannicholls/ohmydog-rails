@@ -1,7 +1,7 @@
 <!-- This form is for entry of all user details, i.e. for admin use only -->
 <!-- For a user to create an account for himself/herself, use static#signup -->
-<table class="form">
 <%= form_for @user do |f| %>
+<table class="form">
 <tr>
 <td><%= f.label :fname, 'First Name' %></td>
 <td><%= f.text_field :fname %></td>
@@ -44,5 +44,5 @@
 <tr>
   <td></td><td><%= f.submit %></td>
 </tr>
-<% end %>
 </table>
+<% end %>
