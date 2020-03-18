@@ -3,37 +3,42 @@
 <table class="show walk">
 
 <tr>
-  <td>Pet name:</td>
-  <td><%= @walk.pet.name %></td>
+  <td>Pet name:</td><td><%= @walk.pet.name %></td>
 </tr>
 
 <tr>
-  <td>Pickup Window</td>
-  <td><%= @walk.pickup_window %></td>
+  <td>Date:</td><td><%= @walk.date.strftime('%a %b %e') %></td>
 </tr>
 
 <tr>
-  <td>Walk Notes:</td>
-  <td><%= @walk.notes %></td>
+  <td>Pickup Window</td><td><%= @walk.pickup_window %></td>
 </tr>
 
 <tr>
-  <td>Pet Notes:</td>
-  <td><%= @walk.pet.notes %></td>
+  <td>Address:</td>
+  <td>
+    <%= @walk.pet.owner.address %> <br>
+    <%= @walk.pet.owner.zip_code %> <br>
+    <%= link_to 'View on Google Maps', "https://www.google.com/maps/place/#{@walk.pet.owner.address.gsub(' ', '+')},+#{@walk.pet.owner.zip_code}", target: '_blank' %>
+  </td>
 </tr>
 
 <tr>
-  <td>Walk Type:</td>
-  <td><%= @walk.walk_type %></td>
+  <td>Walk Notes:</td><td><%= @walk.notes %></td>
+</tr>
+
+<tr>
+  <td>Pet Notes:</td><td><%= @walk.pet.notes %></td>
+</tr>
+
+<tr>
+  <td>Walk Type:</td><td><%= @walk.walk_type %></td>
 </tr>
 
 <% if @walk.completed? %>
-
-<tr>
-  <td>Completed By:</td>
-  <td><%= @walk.walker %></td>
-</tr>
-
+  <tr>
+    <td>Completed By:</td><td><%= @walk.walker %></td>
+  </tr>
 <% end %>
 
 <tr>
