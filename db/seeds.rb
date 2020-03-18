@@ -38,9 +38,10 @@ end
 
 Pet.all.each do |pet|
   date = Faker::Date.forward(days: 7)
-  start_time = Faker::Time.between_dates(from: date, to: date + 1, period: :day)
+  start_time = DateTime.parse(date.to_s) + 10/24
 
   pet.walks.build(
+    date: date,
     window_start: start_time.strftime('%Y-%m-%dT%H%M'),
     window_end: start_time + (1/24),
     notes: Faker::Movies::Lebowski.quote,
