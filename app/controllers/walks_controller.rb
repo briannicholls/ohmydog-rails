@@ -10,13 +10,8 @@ class WalksController < ApplicationController
   end
 
   def create
-    binding.pry
-    3.times.with_index do |i|
-      params['walk']["window_start(#{i+1}i)"] = params['walk']["date(#{i+1}i)"]
-      params['walk']["window_end(#{i+1}i)"] = params['walk']["date(#{i+1}i)"]
-    end
+    fix_params
     @walk = Walk.create(walk_params)
-    binding.pry
     @walk.persisted? ? redirect_to(walk_path(@walk)) : render(:new)
   end
 
@@ -62,5 +57,23 @@ class WalksController < ApplicationController
       :completed?,
       :date
     )
+  end
+
+  def fix_params
+    walk = params['walk']
+    start_hour = walk['window_start(5i)'].split(':')[0]
+    start_mins = walk['window_start(5i)'].split(':')[1]
+    end_hour = walk['window_end(5i)'].split(':')[0]
+    end_mins = walk['window_end(5i)'].split(':')[1]
+
+    3.times.with_index do |i|
+      walk["window_start(#{i+1}i)"] = walk["date(#{i+1}i)"]
+      walk["window_end(#{i+1}i)"] = walk["date(#{i+1}i)"]
+    end
+
+    walk['window_start(4i)'] = start_hour
+    walk['window_start(5i)'] = start_mins
+    walk['window_end(4i)'] = end_hour
+    walk['window_end(5i)'] = end_mins
   end
 end
