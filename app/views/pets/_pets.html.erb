@@ -1,6 +1,11 @@
 <h1>Pets</h1>
-<ul>
+<table>
   <% @pets.each do |pet| %>
-  <li><%= link_to pet.name, pet_path(pet) %></li>
+
+  <tr>
+    <td><%= link_to pet.name_with_owner, pet_path(pet) %></td>
+    <td><%= link_to pet.owner.address, "https://www.google.com/maps/place/#{pet.owner.address.gsub(' ', '+')},+#{pet.owner.zip_code}", target: '_blank' %></td>
+  </tr>
+
   <% end %>
-</ul>
+</table>
