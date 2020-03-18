@@ -1,6 +1,10 @@
 <h1>Owners</h1>
-<ul>
+<table>
+
   <% @owners.each do |owner| %>
-    <li><%= link_to owner.name, owner_path(owner) %></li>
+  <tr>
+    <td><%= link_to owner.name, owner_path(owner) %></td>    
+  </tr>
   <% end %>
-</ul>
+
+</table>
