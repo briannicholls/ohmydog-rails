@@ -1,6 +1,6 @@
 class WalksController < ApplicationController
   def index
-    @walks = Walk.all # add scope method for showing only walks for TODAY
+    @walks ||= Walk.today
   end
 
   def new
@@ -22,10 +22,11 @@ class WalksController < ApplicationController
 
   def update
     @walk = Walk.find params[:id]
+    #binding.pry
     if @walk.update walk_params
       redirect_to walk_path(@walk)
     else
-      flash.alert = ""
+      flash.alert = "Update failed"
       render :edit
     end
   end
@@ -33,6 +34,11 @@ class WalksController < ApplicationController
   def destroy
     walk = Walk.find params[:walk_id]
     walk.delete
+  end
+
+  def all
+    @walks = Walk.all
+    render :index
   end
 
   private
@@ -45,7 +51,8 @@ class WalksController < ApplicationController
       :pet_id,
       :notes,
       :walk_type,
-      :completed?
+      :completed?,
+      :date
     )
   end
 end
