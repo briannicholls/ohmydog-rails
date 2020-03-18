@@ -1,7 +1,13 @@
 <% if !@walks.empty? %>
 <h1>Walks for <%= @walks.first.date.strftime('%a, %b %e') %> - <%= @walks.last.date.strftime('%a, %b %e') %></h1>
-<%= link_to 'Add New Walk', new_walk_path %>
-<table class="list">
+
+
+<table class="list w3-table">
+
+  <tr>
+    <td><%= link_to 'Add New Walk', new_walk_path %></td>
+    <td><%= link_to 'View All Walks', '/walks/all' %></td>
+  </tr>
 
   <tr>
     <th>Name</th><th>Pickup Window</th><th>Address</th><th></th>
@@ -22,5 +28,4 @@
 <% else %>
 <h1>No walks for today!</h1>
 <%= link_to 'Add New Walk', new_walk_path %>
-<%= link_to 'View All Walks', '/walks/all' %>
 <% end %>
