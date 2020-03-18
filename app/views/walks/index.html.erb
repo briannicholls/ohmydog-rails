@@ -1,10 +1,18 @@
-<h1>Walks</h1>
-<ul>
+<h1>Walks for <%= @walks.first.date.strftime('%a, %b %e') %> - <%= @walks.last.date.strftime('%a, %b %e') %></h1>
 
-<% @walks.each do |walk| %>
+<%= link_to 'Add New Walk', new_walk_path %>
+<table class="list">
 
-<li><%= link_to walk.pet.name, walk_path(walk) %></li>
+  <tr>
+    <th>Name</th><th>Pickup Window</th><th>Address</th><th></th>
+  </tr>
 
-<% end %>
+  <% @walks.each do |walk| %>
+  <tr>
+    <td><%= link_to walk.pet.name, walk_path(walk) %></td>
+    <td><%= walk.pickup_window %></td>
+    <td><%= walk.pet.owner.address %></td>
+  </tr>
+  <% end %>
 
-</ul>
+</table>
