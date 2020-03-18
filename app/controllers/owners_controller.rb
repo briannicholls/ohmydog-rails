@@ -1,7 +1,7 @@
 class OwnersController < ApplicationController
 
   def index
-    @owners = Owner.all
+    @owners = Owner.all.order(:fname)
   end
 
   def new
