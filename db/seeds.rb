@@ -37,7 +37,8 @@ Owner.all.each do |owner|
 end
 
 Pet.all.each do |pet|
-  start_time = Faker::Date.forward(days: 23)
+  date = Faker::Date.forward(days: 7)
+  start_time = Faker::Time.between_dates(from: date, to: date + 1, period: :day)
 
   pet.walks.build(
     window_start: start_time.strftime('%Y-%m-%dT%H%M'),
