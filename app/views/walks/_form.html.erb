@@ -1,6 +1,3 @@
-<div class="">
-
-
 <%= form_for @walk do |f| %>
 <table class="form">
 
@@ -14,9 +11,11 @@
   <td><%= f.time_select :window_start,
                         combined: true,
                         default: Time.now,
-                        minute_step: 15,
-                        start_hour: 8,
-                        end_hour: 22 %></td>
+                        minute_step: 30,
+                        start_hour: 9,
+                        end_hour: 21,
+                        ampm: true,
+                        ignore_date: true %></td>
 </tr>
 
 <tr>
@@ -24,9 +23,11 @@
   <td><%= f.time_select :window_end,
                         combined: true,
                         default: Time.now,
-                        minute_step: 15,
-                        start_hour: 8,
-                        end_hour: 22 %></td>
+                        minute_step: 30,
+                        start_hour: 10,
+                        end_hour: 22,
+                        ampm:true,
+                        ignore_date: true %></td>
 </tr>
 
 <tr>
@@ -41,7 +42,7 @@
 
 <tr>
   <td><%= f.label :walk_type %></td>
-  <td><%= f.text_field :walk_type %></td>
+  <td><%= select_tag('walk[walk_type]', options_for_select(['15 min', '30 min', '1 hour'], '30 min'))  %></td>
 </tr>
 
 <tr>
@@ -50,5 +51,3 @@
 
 </table>
 <% end %>
-
-</div>
