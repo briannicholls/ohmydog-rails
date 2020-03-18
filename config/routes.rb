@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :walks
+  resources :walks do
+    get 'all', on: :collection
+  end
+
+
   resources :owners do
     resources :pets
   end
