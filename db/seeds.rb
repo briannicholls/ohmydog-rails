@@ -37,13 +37,14 @@ Owner.all.each do |owner|
 end
 
 Pet.all.each do |pet|
-  date = Faker::Date.forward(days: 7)
-  start_time = DateTime.parse(date.to_s) + 10/24
+  date = DateTime.parse(Faker::Date.between(from: 1.days.ago, to: 5.days.from_now).to_s)
+  start_time = Time.parse(date.to_s) + rand(0..7200)
+  end_time = start_time + 3600
 
   pet.walks.build(
     date: date,
-    window_start: start_time.strftime('%Y-%m-%dT%H%M'),
-    window_end: start_time + (1/24),
+    window_start: start_time,
+    window_end: end_time,
     notes: Faker::Movies::Lebowski.quote,
     walk_type: '30 min'
   ).save
