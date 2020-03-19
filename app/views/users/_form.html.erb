@@ -1,5 +1,18 @@
 <!-- This form is for entry of all user details, i.e. for admin use only -->
 <!-- For a user to create an account for himself/herself, use static#signup -->
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @user do |f| %>
 
 <table class="form">
