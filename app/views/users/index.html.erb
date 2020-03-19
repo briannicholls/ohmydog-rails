@@ -1,6 +1,12 @@
 <h1>Users</h1>
-<ul>
-<% @users.each do |user| %>
-<li><%= link_to user.name, user_path(user) %></li>
-<% end %>
-</ul>
+<%= link_to 'Create new user', new_user_path %>
+<table class="w3-table">
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= link_to user.name, user_path(user) %></td>
+    <td><%= user.role %></td>
+
+  </tr>
+  <% end %>
+
+</table>
