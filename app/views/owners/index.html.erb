@@ -3,7 +3,7 @@
 
   <% @owners.each do |owner| %>
   <tr>
-    <td><%= link_to owner.name, owner_path(owner) %></td>    
+    <td><%= link_to owner.name, owner_pets_path(owner) %></td>    
   </tr>
   <% end %>
 
