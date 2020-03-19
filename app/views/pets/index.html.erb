@@ -1,1 +1,9 @@
+<% if @owner %>
+  <%= render 'owners/owner' %>
+  <%= link_to 'Create new Pet', new_owner_pet_path(@owner) %>
+<% else %>
+  <h1>Pets</h1>
+  <%= link_to 'Create new Pet', new_pet_path %>
+<% end %>
+
 <%= render 'pets' %>
