@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   resources :walks do
     get 'all', on: :collection
+    resources :pets, only: [:show]
   end
 
 
   resources :owners do
     resources :pets
   end
+
   resources :users
   resources :pets
 
