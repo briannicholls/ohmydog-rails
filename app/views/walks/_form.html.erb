@@ -1,5 +1,17 @@
+<% if @walk.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@walk.errors.count, "error") %> prohibited this walk from being saved:</h2>
+
+    <ul>
+    <% @walk.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @walk do |f| %>
-<table class="form">
+<table class="form w3-table">
 
 <tr>
   <td><%= f.label :date %></td>
@@ -7,7 +19,7 @@
 </tr>
 
 <tr>
-  <td><%= f.label :window_start %></td>
+  <td><%= f.label :window_start, 'Window start' %></td>
   <td><%= f.time_select :window_start,
                         combined: true,
                         default: Time.now,
@@ -15,24 +27,27 @@
                         start_hour: 9,
                         end_hour: 21,
                         ampm: true,
-                        ignore_date: true %></td>
+                        ignore_date: true,
+                        time_separator: '' %></td>
 </tr>
 
 <tr>
   <td><%= f.label :window_end %></td>
   <td><%= f.time_select :window_end,
-                        combined: true,
+                        {combined: true,
                         default: Time.now,
                         minute_step: 30,
                         start_hour: 10,
                         end_hour: 22,
-                        ampm:true,
-                        ignore_date: true %></td>
+                        ampm: true,
+                        ignore_date: true,
+                        time_separator: ''}
+                         %></td>
 </tr>
 
 <tr>
   <td><%= f.label :pet_id %></td>
-  <td><%= f.collection_select :pet_id, Pet.all.order(:name), :id, :name_with_owner, include_blank: true %></td>
+  <td><%= f.collection_select :pet_id, Pet.all.order(:name), :id, :name_with_owner, {include_blank: true} %></td>
 </tr>
 
 <tr>
