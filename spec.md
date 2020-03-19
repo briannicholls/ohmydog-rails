@@ -33,3 +33,4 @@ TODO:
 - nested form for pets/walk, add option for recurring walks
 - nested show for Pet in Walk show
 - zip code needs to be string to show leading zeroes
+- completed-by method
