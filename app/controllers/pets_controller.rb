@@ -1,11 +1,19 @@
 class PetsController < ApplicationController
 
   def index
-    @pets = Pet.all.order(:name)
+    if params[:owner_id]
+      @owner = Owner.find(params[:owner_id])
+      @pets = @owner.pets
+    else
+      @pets = Pet.all_az
+    end
   end
 
   def new
     @pet = Pet.new
+    if params[:owner_id]
+      @pet.owner = Owner.find params[:owner_id]
+    end
   end
 
   def create
