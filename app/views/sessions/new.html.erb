@@ -1,8 +1,13 @@
-<h1>Log In</h1>
-
-<table class="form">
-
 <%= form_tag :login %>
+<table class="form w3-table">
+<tr>
+  <th><h1>Log In</h1></th>
+</tr>
+<% if flash.alert %>
+<tr>
+  <td></td><td><strong><em><%= flash.alert %></em></strong></td>
+</tr>
+<% end %>
 <tr>
   <td><%= label_tag :email %></td>
   <td><%= text_field_tag :email %></td>
