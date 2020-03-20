@@ -10,12 +10,12 @@
 
   <tr>
     <td>Primary Phone:</td>
-    <td><%= number_to_phone @owner.phone %></td>
+    <td><%= link_to @owner.phone,"tel:#{@owner.phone}" %></td>
   </tr>
 
   <tr>
     <td>Secondary Phone:</td>
-    <td><%= number_to_phone @owner.phone2 %></td>
+    <td><%= link_to @owner.phone2,"tel:#{@owner.phone2}" %></td>
   </tr>
 
   <tr>
