@@ -1,9 +1,21 @@
-<h1>Owners</h1>
-<table>
+<table class="w3-table w3-bordered">
+  <tr>
+    <th colspan="2"><h1>Owners</h1></th>
+  </tr>
+
+  <tr>
+    <th><%= link_to 'Create New Owner', new_owner_path %></th>
+  </tr>
+
+  <tr>
+    <th>Name</th>
+    <th>Neighborhood</th>
+  </tr>
 
   <% @owners.each do |owner| %>
   <tr>
-    <td><%= link_to owner.name, owner_pets_path(owner) %></td>    
+    <td><%= link_to owner.name, owner_pets_path(owner) %></td>
+    <td><%= owner.neighborhood %></td>
   </tr>
   <% end %>
 

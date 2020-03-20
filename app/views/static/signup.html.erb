@@ -1,7 +1,8 @@
-<h1>Create Account</h1>
-
 <%= form_for @user do |f| %>
-<table class="form">
+<table class="form w3-table">
+  <tr>
+    <th colspan="2"><h1>Create Account</h1></th>
+  </tr>
 
   <tr>
     <td><%= f.label :fname, 'First Name' %></td>
@@ -32,9 +33,14 @@
     <td></td><td><%= f.submit %></td>
   </tr>
 
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td colspan="2">Or: <strong><%= link_to 'Sign Up With Google', '/auth/google_oauth2' %></strong></td>
+  </tr>
+
 </table>
 <% end %>
-
-<p>Or</p>
-
-<p><%= link_to 'Sign Up With Google', '/auth/google_oauth2' %></p>

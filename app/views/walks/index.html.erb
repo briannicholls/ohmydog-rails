@@ -1,12 +1,18 @@
 <% if !@walks.empty? %>
-<h1>Walks for <%= @walks.first.date.strftime('%a, %b %e') %> - <%= @walks.last.date.strftime('%a, %b %e') %></h1>
 
-
-<table class="list w3-table">
+<table class="list w3-table w3-bordered">
 
   <tr>
-    <td><%= link_to 'Add New Walk', new_walk_path %></td>
-    <td><%= link_to 'View All Walks', '/walks/all' %></td>
+    <th colspan="3"><h1>Walks for <%= @walks.first.date.strftime('%a, %b %e') %><%= " - #{@walks.last.date.strftime('%a, %b %e')}" if @walks.first.date != @walks.last.date %></h1></th>
+  </tr>
+
+  <tr>
+    <th colspan="2"><%= link_to 'Add New Walk', new_walk_path %></th>
+    <% if current_page?('/walks') %>
+      <th class="w3-blue"><%= link_to('View All Walks', '/walks/all') %></th>
+    <% else %>
+      <th></th>
+    <% end %>
   </tr>
 
   <tr>
@@ -16,7 +22,7 @@
   <% @walks.each do |walk| %>
   <tr>
     <td><%= link_to walk.pet.name, walk_path(walk) %></td>
-    <td><%= walk.pickup_window %></td>
+    <td><strong><%= "#{walk.date.strftime('%-m/%e')}: " if current_page?('/walks/all') %></strong><%= walk.pickup_window %></td>
     <td>
       <%= link_to walk.pet.owner.address, "https://www.google.com/maps/place/#{walk.pet.owner.address.gsub(' ', '+')},+#{walk.pet.owner.zip_code}", target: '_blank' %><br>
       <%= "#{walk.pet.owner.zip_code} (#{walk.pet.owner.neighborhood})" %>
@@ -25,7 +31,9 @@
   <% end %>
 
 </table>
+
 <% else %>
 <h1>No walks for today!</h1>
 <%= link_to 'Add New Walk', new_walk_path %>
+
 <% end %>

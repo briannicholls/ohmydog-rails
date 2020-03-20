@@ -1,4 +1,8 @@
-<table class="show pet">
+<table class="show pet w3-table w3-bordered">
+
+  <tr>
+    <th colspan="2"><h1><%= @pet.name %></h1></th>
+  </tr>
 
   <tr>
     <td>Breed:</td><td><%= @pet.breed %></td>
@@ -17,7 +21,7 @@
   </tr>
 
   <tr>
-    <td></td><td><%= link_to 'Edit Pet', edit_pet_path(@pet) %></td>
+    <td colspan="2"><%= link_to 'Edit Pet', edit_pet_path(@pet), class: 'w3-button w3-bar w3-lime' %></td>
   </tr>
 
 </table>
