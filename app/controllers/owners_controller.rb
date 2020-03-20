@@ -15,7 +15,8 @@ class OwnersController < ApplicationController
 
   def show
     @owner = Owner.find params[:id]
-    @pets = @owner.pets
+    #@pets = @owner.pets
+    redirect_to owner_pets_path(@owner)
   end
 
   def edit
