@@ -11,7 +11,7 @@
 <% end %>
 
 <%= form_for @owner do |f| %>
-<table class="form">
+<table class="form w3-table w3-bordered">
 
 <tr>
 <td><%= f.label :fname, 'First Name' %></td>
@@ -31,6 +31,11 @@
 <tr>
 <td><%= f.label :phone, 'Phone #' %></td>
 <td><%= f.telephone_field :phone %></td>
+</tr>
+
+<tr>
+<td><%= f.label :phone2, 'Secondary Phone #' %></td>
+<td><%= f.text_field :phone2 %></td>
 </tr>
 
 <tr>
@@ -61,11 +66,6 @@
 <tr>
 <td><%= f.label :entry_instructions, 'Entry Instructions' %></td>
 <td><%= f.text_field :entry_instructions %></td>
-</tr>
-
-<tr>
-<td><%= f.label :phone2, 'Secondary Phone #' %></td>
-<td><%= f.text_field :phone2 %></td>
 </tr>
 
 <tr>
