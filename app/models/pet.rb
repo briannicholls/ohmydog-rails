@@ -8,6 +8,10 @@ class Pet < ApplicationRecord
   scope :all_az, -> {all.order(:name)}
 
   def name_with_owner
-    "#{name} (#{owner.name})" if owner
+    if owner
+      "#{name} (#{owner.name})"
+    else
+      "#{name} (no owner assigned)"
+    end
   end
 end
