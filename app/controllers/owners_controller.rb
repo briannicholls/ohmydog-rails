@@ -1,4 +1,6 @@
 class OwnersController < ApplicationController
+  before_action :redirect_if_not_logged_in
+  include ActionView::Helpers::NumberHelper
 
   def index
     @owners = Owner.all.order(:fname)
@@ -36,6 +38,8 @@ class OwnersController < ApplicationController
   private
 
   def owner_params
+    params[:owner][:phone] = number_to_phone(params[:owner][:phone], pattern: /(\d{1,4})(\d{3})(\d{4})$/, area_code: true)
+    params[:owner][:phone2] = number_to_phone(params[:owner][:phone2], pattern: /(\d{1,4})(\d{3})(\d{4})$/, area_code: true)
     params.require(:owner).permit(
       :fname,
       :lname,
