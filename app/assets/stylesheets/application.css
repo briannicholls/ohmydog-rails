@@ -23,3 +23,7 @@
 #error_explanation {
   color: red;
 }
+
+body {
+  max-width: 900px;
+}
