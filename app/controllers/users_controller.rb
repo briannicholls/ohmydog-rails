@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :redirect_if_not_logged_in, except: [:new, :create]
+  before_action :redirect_if_not_logged_in, except: [:signup]
+  include ActionView::Helpers::NumberHelper
 
   def index
     @users = User.all.order(:fname)
@@ -11,7 +12,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create user_params
+    @user.persisted? ? redirect_to(user_path(@user)) : render(:new)
+  end
+
+  def signup
+    @user = User.create user_params
     if @user.persisted?
+      session[:user_id] = @user.id
       redirect_to user_path @user
     else
       render :new
@@ -39,6 +46,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
+    params[:user][:phone] = number_to_phone(params[:user][:phone], pattern: /(\d{1,4})(\d{3})(\d{4})$/, area_code: true)
     params.require(:user).permit(
       :fname,
       :lname,
