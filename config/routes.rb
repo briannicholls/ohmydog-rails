@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     resources :pets, only: [:show]
   end
 
-
   resources :owners do
     resources :pets
   end
@@ -13,8 +12,11 @@ Rails.application.routes.draw do
   resources :pets
 
   get 'login', to: 'sessions#new'
-  get 'signup', to: 'static#signup'
+  post '/login', to: 'sessions#create'
   get 'logout', to: 'sessions#destroy'
+
+  get 'signup', to: 'static#signup'
+  post 'signup', to: 'users#signup'
 
   get '/auth/google_oauth2/callback', to: 'static#google_login'
 
