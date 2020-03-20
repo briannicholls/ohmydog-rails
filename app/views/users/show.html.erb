@@ -10,7 +10,7 @@
 
   <tr>
     <td>Phone:</td>
-    <td><%= @user.phone %></td>
+    <td><%= link_to @user.phone, "tel:#{@user.phone}" %></td>
   </tr>
 
   <tr>
