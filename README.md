@@ -10,6 +10,9 @@ Current goals for this project are:
 - add image upload support for pets
 - stretch goal: create client-facing portions of the cite, possibly allowing customers to schedule walks
 
+Blog post: http://briannicholls.home.blog/2020/03/21/my-first-rails-project-managing-a-dog-walking-business/
+
+Video walkthrough: https://youtu.be/dOP1iZg9ntE
 
 # Installation
 
