@@ -1,13 +1,13 @@
 <h1>Walk Details</h1>
 
-<table class="show walk">
-
-<tr>
-  <td>Pet name:</td><td><%= @walk.pet.name %></td>
-</tr>
+<table class="show walk w3-table w3-bordered">
 
 <tr>
   <td>Date:</td><td><%= @walk.date.strftime('%a %b %e') %></td>
+</tr>
+
+<tr>
+  <td>Pet name:</td><td><%= @walk.pet.name %> <em><%= "(#{@walk.pet.gender} #{@walk.pet.breed})" %></em></td>
 </tr>
 
 <tr>
@@ -17,10 +17,27 @@
 <tr>
   <td>Address:</td>
   <td>
-    <%= @walk.pet.owner.address %> <br>
+    <%= @walk.pet.owner.address %><%= " #{@walk.pet.owner.apartment_number}" if @walk.pet.owner.apartment_number %><br>
     <%= @walk.pet.owner.zip_code %> <br>
     <%= link_to 'View on Google Maps', "https://www.google.com/maps/place/#{@walk.pet.owner.address.gsub(' ', '+')},+#{@walk.pet.owner.zip_code}", target: '_blank' %>
   </td>
+</tr>
+
+<% if @walk.pet.owner.lockbox_code %>
+<tr>
+  <td>Lockbox code:</td><td><%= @walk.pet.owner.lockbox_code %></td>
+</tr>
+<% end %>
+
+<% if @walk.pet.owner.door_code %>
+<tr>
+  <td>Door code:</td><td><%= @walk.pet.owner.door_code %></td>
+</tr>
+<% end %>
+
+<tr>
+  <td>Entry Instructions:</td>
+  <td><%= @walk.pet.owner.entry_instructions %></td>
 </tr>
 
 <tr>
@@ -32,8 +49,26 @@
 </tr>
 
 <tr>
+  <td>Temperament:</td><td><%= @walk.pet.temperament %></td>
+</tr>
+
+<tr>
   <td>Walk Type:</td><td><%= @walk.walk_type %></td>
 </tr>
+
+<tr>
+  <th>Owner info:</th><th><%= @walk.pet.owner.name %></th>
+</tr>
+
+<tr>
+  <td>Primary phone:</td><td><%= link_to @walk.pet.owner.phone, "tel:#{@walk.pet.owner.phone}" %></td>
+</tr>
+
+<% if @walk.pet.owner.phone2 %>
+<tr>
+  <td>Secondary phone:</td><td><%= link_to @walk.pet.owner.phone2, "tel:#{@walk.pet.owner.phone2}" %></td>
+</tr>
+<% end %>
 
 <% if @walk.completed? %>
   <tr>
