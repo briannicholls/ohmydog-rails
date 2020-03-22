@@ -52,6 +52,7 @@ class PetsController < ApplicationController
     params.require(:pet).permit(
       :name,
       :owner_id,
+      :gender,
       :breed,
       :birthday,
       :temperament,
