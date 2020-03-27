@@ -1,10 +1,13 @@
 class PetsController < ApplicationController
   before_action :redirect_if_not_logged_in
+  before_action :set_pet, only: [:show, :edit, :update]
 
   def index
     if params[:owner_id]
       @owner = Owner.find(params[:owner_id])
       @pets = @owner.pets
+    elsif params[:query]
+      @pets = Pet.where("LOWER(name) ~ ?", "#{params[:query].downcase}")
     else
       @pets = Pet.all_az
     end
@@ -28,16 +31,13 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = Pet.find params[:id]
     @owner = @pet.owner
   end
 
   def edit
-    @pet = Pet.find params[:id]
   end
 
   def update
-    @pet = Pet.find params[:id]
     if @pet.update pet_params
       redirect_to pet_path(@pet)
     else
@@ -47,6 +47,10 @@ class PetsController < ApplicationController
   end
 
   private
+
+  def set_pet
+    @pet = Pet.find params[:id]
+  end
 
   def pet_params
     params.require(:pet).permit(
