@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :redirect_if_not_logged_in, except: [:signup]
+  before_action :set_user, only: [:show, :edit, :update]
   include ActionView::Helpers::NumberHelper
 
   def index
@@ -26,15 +27,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find params[:id]
   end
 
   def edit
-    @user = User.find params[:id]
   end
 
   def update
-    @user = User.find params[:id]
     if @user.update user_params
       redirect_to user_path(@user)
     else
@@ -44,6 +42,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find params[:id]
+  end
 
   def user_params
     params[:user][:phone] = number_to_phone(params[:user][:phone], pattern: /(\d{1,4})(\d{3})(\d{4})$/, area_code: true)

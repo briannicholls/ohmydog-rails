@@ -1,5 +1,6 @@
 class OwnersController < ApplicationController
   before_action :redirect_if_not_logged_in
+  before_action :set_owner, only: [:show, :edit, :update]
   include ActionView::Helpers::NumberHelper
 
   def index
@@ -16,17 +17,13 @@ class OwnersController < ApplicationController
   end
 
   def show
-    @owner = Owner.find params[:id]
-    #@pets = @owner.pets
     redirect_to owner_pets_path(@owner)
   end
 
   def edit
-    @owner = Owner.find params[:id]
   end
 
   def update
-    @owner = Owner.find params[:id]
     if @owner.update owner_params
       redirect_to owner_path(@owner)
     else
@@ -36,6 +33,10 @@ class OwnersController < ApplicationController
   end
 
   private
+
+  def set_owner
+    @owner = Owner.find params[:id]
+  end
 
   def owner_params
     params[:owner][:phone] = number_to_phone(params[:owner][:phone], pattern: /(\d{1,4})(\d{3})(\d{4})$/, area_code: true)
