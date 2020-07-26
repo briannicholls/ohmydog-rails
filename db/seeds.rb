@@ -26,7 +26,7 @@ def call
 
   Owner.all.each do |owner|
     owner.pets.build(
-      name: Faker::Cannabis.strain,
+      name: Faker::Creature::Dog.name,
       breed: Faker::Creature::Dog.breed,
       gender: Faker::Creature::Dog.gender,
       appearance: Faker::Creature::Dog.meme_phrase,
