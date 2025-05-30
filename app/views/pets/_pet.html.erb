@@ -1,31 +1,47 @@
-<table class="show pet w3-table w3-bordered">
+<div class="w3-card-4 w3-round-large w3-margin-bottom">
 
-  <tr>
-    <th colspan="2"><h1><%= @pet.name %></h1></th>
-  </tr>
+  <header class="w3-container w3-center w3-theme-d1 w3-padding-large w3-round-top-large"> <%# Use a pet-specific theme color or w3-black %>
+    <%# Placeholder for pet avatar/image %>
+    <%# Example: <%= image_tag @pet.avatar_url, class: "w3-circle w3-margin-bottom", style: "width:100px;" if @pet.avatar_url.present? %>
+    <h1 class="w3-xxlarge"><%= @pet.name %></h1>
+    <% if @pet.breed.present? %>
+      <p class="w3-medium w3-text-light-grey"><%= @pet.breed %></p>
+    <% end %>
+  </header>
 
-  <tr>
-    <td>Breed:</td><td><%= @pet.breed %></td>
-  </tr>
+  <div class="w3-container w3-padding-24">
+    <% attributes = [
+         { label: "Birthday", value: @pet.birthday&.strftime("%B %d, %Y") }, # Added safe navigation and formatting
+         { label: "Gender", value: @pet.gender },
+         { label: "Appearance", value: @pet.appearance },
+         { label: "Notes", value: @pet.notes }
+         # Add other relevant pet attributes here
+       ] %>
 
-  <tr>
-    <td>birthday</td><td><%= @pet.birthday %></td>
-  </tr>
+    <% attributes.each_with_index do |attr, index| %>
+      <% if attr[:value].present? %>
+        <div class="w3-row w3-padding-small profile-attribute-row">
+          <div class="w3-col m4 l3">
+            <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
+          </div>
+          <div class="w3-col m8 l9">
+            <%= attr[:value] %>
+          </div>
+        </div>
+        <% if index < attributes.select { |a| a[:value].present? }.size - 1 %>
+          <hr class="profile-hr-mobile">
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 
-  <tr>
-    <td>Notes:</td><td><%= @pet.notes %></td>
-  </tr>
+  <footer class="w3-container w3-center w3-light-grey w3-padding-16 w3-round-bottom-large">
+    <%= link_to "Edit Pet", edit_pet_path(@pet), class: "w3-button w3-black w3-round-large w3-hover-dark-grey" %>
+  </footer>
 
-  <tr>
-    <td>Gender:</td><td><%= @pet.gender %></td>
-  </tr>
+</div>
 
-  <tr>
-    <td>Appearance:</td><td><%= @pet.appearance %></td>
-  </tr>
-
-  <tr>
-    <td><%= edit_button(@pet) %></td>
-  </tr>
-
-</table>
+<%#
+  Reminder: The CSS for .profile-attribute-row and .profile-hr-mobile should be in a global stylesheet
+  (e.g., application.css or users.css). These are the same styles used for owner and user profiles.
+%>

@@ -1,67 +1,51 @@
-<table class="show owner w3-table w3-bordered">
-  <tr>
-    <th colspan="2"><h1><%= link_to @owner.name, owner_path(@owner) %></h1></th>
-  </tr>
+<div class="w3-card-4 w3-round-large w3-margin-bottom">
 
-  <tr>
-    <td>Email:</td>
-    <td><%= @owner.email %></td>
-  </tr>
+  <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
+    <h1 class="w3-xxlarge"><%= link_to @owner.name, owner_path(@owner), class: "w3-text-white w3-hover-text-light-grey" %></h1>
+    <% if @owner.neighborhood.present? %>
+      <p class="w3-medium w3-text-light-grey"><%= @owner.neighborhood %></p>
+    <% end %>
+  </header>
 
-  <tr>
-    <td>Primary Phone:</td>
-    <td><%= link_to @owner.phone,"tel:#{@owner.phone}" %></td>
-  </tr>
+  <div class="w3-container w3-padding-24">
+    <% attributes = [
+         { label: "Email", value: @owner.email },
+         { label: "Primary Phone", value: (@owner.phone.present? ? link_to(@owner.phone, "tel:#{@owner.phone}") : nil) },
+         { label: "Secondary Phone", value: (@owner.phone2.present? ? link_to(@owner.phone2, "tel:#{@owner.phone2}") : nil) },
+         { label: "Address", value: (
+           if @owner.address.present?
+             add = @owner.address
+             add += "<br>#{@owner.zip_code}" if @owner.zip_code.present?
+             add += "<br>" + link_to('View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank', class: 'w3-text-blue w3-hover-text-light-blue')
+             add.html_safe
+           end
+         )},
+         { label: "Apartment #", value: @owner.apartment_number },
+         { label: "Door Code", value: @owner.door_code },
+         { label: "Lockbox Code", value: @owner.lockbox_code },
+         { label: "Entry Instructions", value: @owner.entry_instructions },
+         { label: "Profile Created", value: @owner.created_at.present? ? @owner.created_at.strftime("%B %d, %Y") : nil }
+       ] %>
 
-  <tr>
-    <td>Secondary Phone:</td>
-    <td><%= link_to @owner.phone2,"tel:#{@owner.phone2}" %></td>
-  </tr>
+    <% attributes.each_with_index do |attr, index| %>
+      <% if attr[:value].present? %>
+        <div class="w3-row w3-padding-small profile-attribute-row">
+          <div class="w3-col m4 l3">
+            <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
+          </div>
+          <div class="w3-col m8 l9">
+            <%= attr[:value] %>
+          </div>
+        </div>
+        <hr class="profile-hr-mobile">
+      <% end %>
+    <% end %>
+  </div>
 
-  <tr>
-    <td>Neighborhood:</td>
-    <td><%= @owner.neighborhood %></td>
-  </tr>
-
-  <tr>
-    <td>Address:</td>
-    <td>
-      <%= @owner.address %> <br>
-      <%= @owner.zip_code %> <br>
-      <%= link_to 'View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank' %>
-    </td>
-  </tr>
-
-  <tr>
-    <td>Apartment #:</td>
-    <td><%= @owner.apartment_number %></td>
-  </tr>
-
-  <% if @owner.door_code %>
-  <tr>
-    <td>Door Code:</td>
-    <td><%= @owner.door_code %></td>
-  </tr>
+  <% if defined?(show_edit_button) && show_edit_button %>
+    <footer class="w3-container w3-center w3-light-grey w3-padding-16 w3-round-bottom-large">
+      <%= link_to "Edit Owner", edit_owner_path(@owner), class: "w3-button w3-black w3-round-large w3-hover-dark-grey" %>
+    </footer>
   <% end %>
 
-  <% if @owner.lockbox_code %>
-  <tr>
-    <td>Lockbox Code:</td>
-    <td><%= @owner.lockbox_code %></td>
-  </tr>
-  <% end %>
-
-  <tr>
-    <td>Entry Instructions:</td>
-    <td><%= @owner.entry_instructions %></td>
-  </tr>
-
-  <tr>
-    <td>Created On:</td>
-    <td><%= @owner.created_at %></td>
-  </tr>
-
-  <tr>
-    <td><%= edit_button(@owner) %></td>
-  </tr>
-</table>
+</div>

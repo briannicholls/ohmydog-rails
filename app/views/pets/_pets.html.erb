@@ -1,31 +1,63 @@
 <% if @owner %>
-  <%= render 'owners/show' %>
+  <%= render 'owners/show', owner: @owner, show_edit_button: true %>
 <% end %>
 
-<table class="w3-table w3-bordered">
-  <tr>
-    <th colspan="2"><h1>Pets</h1></th>
-  </tr>
+<div class="w3-container w3-section">
+  <div class="w3-card w3-padding w3-round-large">
+    <h3 class="w3-center">Search <%= @owner ? @owner.name + "'s" : "" %> Pets</h3>
+    <div class="w3-bar w3-center w3-padding-small">
+      <% search_url = request.path %>
+      <%= form_with(url: search_url, local: true, method: 'get', class: "w3-container") do |f| %>
+        <p>
+          <%= f.label :query, 'Enter Name to Search:', class: "w3-text-grey" %>
+          <%= f.text_field :query, class: "w3-input w3-border w3-round", value: params[:query] %>
+        </p>
+        <p class="w3-center">
+          <%= f.submit 'Search', class: "w3-button w3-black w3-round w3-hover-dark-grey" %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-  <tr>
-    <% if @owner %>
-      <th colspan="2"><%= link_to "Create New Pet for #{@owner.fname}", new_owner_pet_path(@owner), class: 'w3-button w3-card w3-light-green' %></th>
+<div class="w3-container w3-section">
+  <div class="w3-card-4 w3-round-large">
+    <header class="w3-container w3-black w3-padding w3-round-top-large">
+      <div class="w3-row">
+        <div class="w3-col m8 l9">
+          <h2 class="w3-xlarge" style="margin-top:10px; margin-bottom:10px;">
+            <%= @owner ? "Pets" : "All Pets" %>
+          </h2>
+        </div>
+        <div class="w3-col m4 l3 w3-right-align">
+          <% if @owner %>
+            <%= link_to new_owner_pet_path(@owner), class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-top-small' do %>
+              <i class="fa fa-plus"></i> New Pet
+            <% end %>
+          <% else %>
+            <%= link_to new_pet_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-top-small' do %>
+              <i class="fa fa-plus"></i> New Pet
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <% if @pets.present? %>
+      <ul class="w3-ul w3-hoverable">
+        <% @pets.each do |pet| %>
+          <li class="w3-bar w3-padding">
+            <div class="w3-bar-item">
+              <span class="w3-large"><%= link_to pet.name_with_owner, pet_path(pet) %></span><br>
+              <span><%= pet.breed %></span>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     <% else %>
-      <th colspan="2"><%= link_to 'Create New Pet', new_pet_path %></th>
+      <div class="w3-container w3-padding w3-center">
+        <p><%= @owner ? "No pets found for this owner." : "No pets found." %></p>
+      </div>
     <% end %>
-  </tr>
-
-  <tr>
-    <th>Name</th>
-    <th>Breed</th>
-  </tr>
-
-  <% @pets.each do |pet| %>
-
-  <tr>
-    <td><%= link_to pet.name_with_owner, pet_path(pet) %></td>
-    <td><%= pet.breed %></td>
-  </tr>
-
-  <% end %>
-</table>
+  </div>
+</div>

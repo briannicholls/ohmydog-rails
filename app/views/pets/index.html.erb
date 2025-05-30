@@ -1,9 +1,1 @@
-<div class="w3-bar w3-center w3-padding-small">
-  <%= form_with(url: '/pets', local: true, method: 'get') do |f| %>
-    <%= f.label :query, 'Enter Name to Search' %>
-    <%= f.text_field :query %>
-    <%= f.submit 'Search' %>
-  <% end %>
-</div>
-
 <%= render 'pets' %>
