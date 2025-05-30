@@ -1,39 +1,62 @@
-<% if !@walks.empty? %>
+<div class="w3-container w3-section">
+  <div class="w3-card-4 w3-round-large">
+    <header class="w3-container w3-black w3-padding w3-round-top-large">
+      <div class="w3-row">
+        <div class="w3-col m6 l7">
+          <h1 class="w3-xlarge" style="margin-top:10px; margin-bottom:10px;">
+            <% if @walks.present? %>
+              Walks for <%= @walks.first.date.strftime('%a, %b %e') %>
+              <%= "- #{@walks.last.date.strftime('%a, %b %e')}" if @walks.first.date != @walks.last.date %>
+            <% else %>
+              Walks
+            <% end %>
+          </h1>
+        </div>
+        <div class="w3-col m6 l5 w3-right-align w3-margin-top-small">
+          <%= link_to new_walk_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-right' do %>
+            <i class="fa fa-plus"></i> Add New Walk
+          <% end %>
+          <% if !current_page?(all_walks_path) %>
+            <%= link_to 'View All Walks', all_walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
+          <% else %>
+             <%= link_to "View Today's Walks", walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
+          <% end %>
+        </div>
+      </div>
+    </header>
 
-<table class="list w3-table w3-bordered">
+    <%# Add Search/Filter form here if needed %>
 
-  <tr>
-    <th colspan="3"><h1>Walks for <%= @walks.first.date.strftime('%a, %b %e') %><%= " - #{@walks.last.date.strftime('%a, %b %e')}" if @walks.first.date != @walks.last.date %></h1></th>
-  </tr>
-
-  <tr>
-    <th colspan="2"><%= link_to 'Add New Walk', new_walk_path %></th>
-    <% if current_page?('/walks') %>
-      <th class="w3-blue"><%= link_to('View All Walks', '/walks/all') %></th>
+    <% if @walks.present? %>
+      <ul class="w3-ul w3-hoverable">
+        <% @walks.each do |walk| %>
+          <li class="w3-bar w3-padding">
+            <div class="w3-bar-item">
+              <span class="w3-large"><%= link_to walk.pet.name, walk_path(walk) %> (<%= walk.pet.owner.name %>)</span><br>
+              <span>
+                <strong>Date:</strong> <%= walk.date.strftime('%a, %b %e, %Y') %><br>
+                <strong>Window:</strong> <%= walk.pickup_window %><br>
+                <strong>Service:</strong> <%= walk.walk_type %>
+              </span><br>
+              <span>
+                <strong>Address:</strong>
+                <%= link_to walk.pet.owner.address, "https://www.google.com/maps/place/#{walk.pet.owner.address.gsub(' ', '+')},+#{walk.pet.owner.zip_code}", target: '_blank', class: "w3-text-blue w3-hover-text-light-blue" %>
+                (<%= walk.pet.owner.zip_code %> - <%= walk.pet.owner.neighborhood %>)
+              </span>
+              <% if walk.notes.present? %>
+                <br><span><strong>Notes:</strong> <%= walk.notes %></span>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     <% else %>
-      <th></th>
+      <div class="w3-container w3-padding w3-center">
+        <p>No walks found for this period.</p>
+        <%# The "Add New Walk" button is already in the header %>
+      </div>
     <% end %>
-  </tr>
 
-  <tr>
-    <th>Name</th><th>Pickup Window</th><th>Address</th><th></th>
-  </tr>
-
-  <% @walks.each do |walk| %>
-  <tr>
-    <td><%= link_to walk.pet.name, walk_path(walk) %></td>
-    <td><strong><%= "#{walk.date.strftime('%-m/%e')}: " if current_page?('/walks/all') %></strong><%= walk.pickup_window %></td>
-    <td>
-      <%= link_to walk.pet.owner.address, "https://www.google.com/maps/place/#{walk.pet.owner.address.gsub(' ', '+')},+#{walk.pet.owner.zip_code}", target: '_blank' %><br>
-      <%= "#{walk.pet.owner.zip_code} (#{walk.pet.owner.neighborhood})" %>
-    </td>
-  </tr>
-  <% end %>
-
-</table>
-
-<% else %>
-<h1>No walks for today!</h1>
-<%= link_to 'Add New Walk', new_walk_path %>
-
-<% end %>
+    <%# Add pagination links here if needed %>
+  </div>
+</div>

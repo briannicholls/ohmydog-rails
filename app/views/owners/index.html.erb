@@ -1,22 +1,40 @@
-<table class="w3-table w3-bordered">
-  <tr>
-    <th colspan="2"><h1>Owners</h1></th>
-  </tr>
+<div class="w3-container w3-section">
+  <div class="w3-card-4 w3-round-large">
+    <header class="w3-container w3-black w3-padding w3-round-top-large">
+      <div class="w3-row">
+        <div class="w3-col m8 l9">
+          <h1 class="w3-xlarge" style="margin-top:10px; margin-bottom:10px;">Owners</h1>
+        </div>
+        <div class="w3-col m4 l3 w3-right-align">
+          <%= link_to new_owner_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-top-small' do %>
+            <i class="fa fa-plus"></i> New Owner
+          <% end %>
+        </div>
+      </div>
+    </header>
 
-  <tr>
-    <th><%= link_to 'Create New Owner', new_owner_path %></th>
-  </tr>
+    <%# Add Search/Filter form here if needed %>
 
-  <tr>
-    <th>Name</th>
-    <th>Neighborhood</th>
-  </tr>
+    <% if @owners.present? %>
+      <ul class="w3-ul w3-hoverable">
+        <% @owners.each do |owner| %>
+          <li class="w3-bar w3-padding">
+            <div class="w3-bar-item">
+              <%# Note: Original link was to owner_pets_path(owner). Adjusted to owner_path(owner) for consistency, review if owner_pets_path is preferred. %>
+              <span class="w3-large"><%= link_to owner.name, owner_path(owner) %></span><br>
+              <span>Neighborhood: <%= owner.neighborhood %></span><br>
+              <span>Primary Phone: <%= owner.phone %></span>
+              <%# Add other details if needed, e.g., email (if not too sensitive for a list) %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="w3-container w3-padding w3-center">
+        <p>No owners found.</p>
+      </div>
+    <% end %>
 
-  <% @owners.each do |owner| %>
-  <tr>
-    <td><%= link_to owner.name, owner_pets_path(owner) %></td>
-    <td><%= owner.neighborhood %></td>
-  </tr>
-  <% end %>
-
-</table>
+    <%# Add pagination links here if needed %>
+  </div>
+</div>
