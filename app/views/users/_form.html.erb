@@ -1,62 +1,59 @@
 <!-- This form is for entry of all user details, i.e. for admin use only -->
 <!-- For a user to create an account for himself/herself, use static#signup -->
-<% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-    <ul>
-    <% @user.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
+<%= form_for @user, html: { class: "w3-container" } do |f| %>
+  <% if @user.errors.any? %>
+    <div class="w3-panel w3-red w3-padding w3-margin-bottom w3-round">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright w3-round">&times;</span>
+      <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+      <ul class="w3-ul">
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :fname, 'First Name', class: "w3-text-grey" %>
+    <%= f.text_field :fname, class: "w3-input w3-border w3-round" %>
+  </p>
+
+  <p>
+    <%= f.label :lname, 'Last Name', class: "w3-text-grey" %>
+    <%= f.text_field :lname, class: "w3-input w3-border w3-round" %>
+  </p>
+
+  <p>
+    <%= f.label :email, 'Email', class: "w3-text-grey" %>
+    <%= f.text_field :email, class: "w3-input w3-border w3-round" %>
+  </p>
+
+  <p>
+    <%= f.label :phone, 'Phone #', class: "w3-text-grey" %>
+    <%= f.telephone_field :phone, class: "w3-input w3-border w3-round" %>
+  </p>
+
+  <div class="w3-margin-bottom"> <%# Grouping for radio buttons %>
+    <%= f.label :role, 'Role', class: "w3-text-grey w3-margin-bottom" %>
+    <p><%= radio_button_tag 'user[role]', 'employee', @user.role == 'employee', class: "w3-radio" %>
+    <%= label_tag 'user_role_employee', 'Employee', class: "w3-validate" %></p>
+    <p><%= radio_button_tag 'user[role]', 'admin', @user.role == 'admin', class: "w3-radio" %>
+    <%= label_tag 'user_role_admin', 'Administrator', class: "w3-validate" %></p>
   </div>
-<% end %>
 
-<%= form_for @user do |f| %>
+  <p>
+    <%= f.label :password, 'Password', class: "w3-text-grey" %>
+    <span class="w3-small w3-text-grey">(Leave blank if you don't want to change it for an existing user)</span>
+    <%= f.password_field :password, class: "w3-input w3-border w3-round", autocomplete: "new-password" %>
+  </p>
 
-<table class="form w3-table w3-bordered">
-<tr>
-<td><%= f.label :fname, 'First Name' %></td>
-<td><%= f.text_field :fname %></td>
-</tr>
+  <p>
+    <%= f.label :password_confirmation, 'Confirm Password', class: "w3-text-grey" %>
+    <%= f.password_field :password_confirmation, class: "w3-input w3-border w3-round", autocomplete: "new-password" %>
+  </p>
 
-<tr>
-<td><%= f.label :lname, 'Last Name' %></td>
-<td><%= f.text_field :lname %></td>
-</tr>
-
-<tr>
-<td><%= f.label :email, 'Email' %></td>
-<td><%= f.text_field :email %></td>
-</tr>
-
-<tr>
-<td><%= f.label :phone, 'Phone #' %></td>
-<td><%= f.telephone_field :phone %></td>
-</tr>
-
-<tr>
-  <td><%= f.label :role, 'Role' %></td>
-  <td>
-    <%= radio_button :user, :role, 'customer'  %>Customer <br>
-    <%= radio_button :user, :role, 'employee'  %>Employee <br>
-    <%= radio_button :user, :role, 'admin'  %>Administrator <br>
-  </td>
-</tr>
-
-<tr>
-<td><%= f.label :password, 'Password' %></td>
-<td><%= f.password_field :password %></td>
-</tr>
-
-<tr>
-<td><%= f.label :password_confirmation, 'Confirm Password' %></td>
-<td><%= f.password_field :password_confirmation %></td>
-</tr>
-
-<tr>
-  <td></td><td><%= f.submit %></td>
-</tr>
-</table>
-
+  <p class="w3-center w3-padding-16">
+    <%= f.submit (@user.new_record? ? "Create User" : "Update User"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
+  </p>
 <% end %>

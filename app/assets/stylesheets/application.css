@@ -37,3 +37,26 @@ body {
   background-color: #000000;
 }
 
+.custom-date-select-container select,
+.custom-time-select-container select {
+  display: inline-block !important;
+  width: auto !important;
+  margin-right: 8px !important;
+  vertical-align: middle;
+}
+
+.custom-date-select-container,
+.custom-time-select-container {
+  display: inline-block;
+}
+
+.custom-date-select-container select:last-child,
+.custom-time-select-container select:last-child {
+  margin-right: 0 !important;
+}
+
+form p label.w3-text-grey {
+    display: block;
+    margin-bottom: 4px;
+}
+

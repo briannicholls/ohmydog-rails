@@ -1,65 +1,57 @@
-<% if @pet.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h2>
+<%= form_for @pet, html: { class: "w3-container" } do |f| %>
+  <% if @pet.errors.any? %>
+    <div class="w3-panel w3-red w3-padding w3-margin-bottom w3-round">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright w3-round">&times;</span>
+      <h3><%= pluralize(@pet.errors.count, "error") %> prohibited this pet from being saved:</h3>
+      <ul class="w3-ul">
+        <% @pet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <ul>
-    <% @pet.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+  <p>
+    <%= f.label :owner_id, 'Owner', class: "w3-text-grey" %>
+    <%= f.collection_select :owner_id, Owner.all.order(:fname, :lname), :id, :name, { include_blank: 'Select Owner (optional)' }, { class: "w3-select w3-border w3-round" } %>
+  </p>
 
-<%= form_for @pet do |f| %>
-<table class="form w3-table w3-bordered">
+  <p>
+    <%= f.label :name, "Name", class: "w3-text-grey" %>
+    <%= f.text_field :name, class: "w3-input w3-border w3-round", required: true %>
+  </p>
 
-  <tr>
-    <th colspan="2"><h1>New Pet</h1></th>
-  </tr>
+  <p>
+    <%= f.label :breed, "Breed", class: "w3-text-grey" %>
+    <%= f.text_field :breed, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-  <td><%= f.label :owner_id, 'Owner' %></td>
-  <td><%= collection_select :pet, :owner_id, Owner.all, :id, :name, {include_blank: true} %></td>
-</tr>
+  <p>
+    <%= f.label :gender, 'Gender', class: "w3-text-grey" %>
+    <%= f.select :gender, ['Male', 'Female', 'Unknown'], { include_blank: 'Select Gender' }, { class: "w3-select w3-border w3-round" } %>
+  </p>
 
-<tr>
-  <td><%= f.label :name, "Name" %></td>
-  <td><%= f.text_field :name %></td>
-</tr>
+  <p>
+    <%= f.label :birthday, "Birthday", class: "w3-text-grey" %>
+    <%= f.date_select :birthday, { order: [:month, :day, :year], start_year: Date.current.year - 30, end_year: Date.current.year, prompt: { day: 'Day', month: 'Month', year: 'Year' } }, { class: "w3-select w3-border w3-round", style: "margin-right: 5px;" } %>
+  </p>
 
-<tr>
-  <td><%= f.label :breed, "Breed" %></td>
-  <td><%= f.text_field :breed %></td>
-</tr>
+  <p>
+    <%= f.label :temperament, "Temperament", class: "w3-text-grey" %>
+    <%= f.text_area :temperament, class: "w3-input w3-border w3-round", rows: 3 %>
+  </p>
 
-<tr>
-  <td><%= f.label :gender, 'Gender' %></td>
-  <td><%= select_tag 'pet[gender]', options_for_select(['male', 'female']), include_blank: true %></td>
-</tr>
+  <p>
+    <%= f.label :notes, "Notes", class: "w3-text-grey" %>
+    <%= f.text_area :notes, class: "w3-input w3-border w3-round", rows: 4 %>
+  </p>
 
-<tr>
-  <td><%= f.label :birthday, "Birthday" %></td>
-  <td><%= f.date_select :birthday %></td>
-</tr>
+  <p>
+    <%= f.label :appearance, "Appearance", class: "w3-text-grey" %>
+    <%= f.text_area :appearance, class: "w3-input w3-border w3-round", rows: 3 %>
+  </p>
 
-<tr>
-  <td><%= f.label :temperament, "Temperament" %></td>
-  <td><%= f.text_area :temperament %></td>
-</tr>
-
-<tr>
-  <td><%= f.label :notes, "Notes" %></td>
-  <td><%= f.text_area :notes %></td>
-</tr>
-
-<tr>
-  <td><%= f.label :appearance, "Appearance" %></td>
-  <td><%= f.text_area :appearance %></td>
-</tr>
-
-<tr>
-  <td></td><td><%= f.submit %></td>
-</tr>
-
-</table>
+  <p class="w3-center w3-padding-16">
+    <%= f.submit (@pet.new_record? ? "Create Pet" : "Update Pet"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
+  </p>
 <% end %>

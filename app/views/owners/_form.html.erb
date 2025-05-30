@@ -1,84 +1,77 @@
-<% if @owner.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@owner.errors.count, "error") %> prohibited this owner from being saved:</h2>
+<%= form_for @owner, html: { class: "w3-container" } do |f| %>
+  <% if @owner.errors.any? %>
+    <div class="w3-panel w3-red w3-padding w3-margin-bottom w3-round">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright w3-round">&times;</span>
+      <h3><%= pluralize(@owner.errors.count, "error") %> prohibited this owner from being saved:</h3>
+      <ul class="w3-ul">
+        <% @owner.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <ul>
-    <% @owner.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+  <p>
+    <%= f.label :fname, 'First Name', class: "w3-text-grey" %>
+    <%= f.text_field :fname, class: "w3-input w3-border w3-round", required: true %>
+  </p>
 
-<%= form_for @owner do |f| %>
-<table class="form w3-table w3-bordered">
-<tr>
-<th colspan="2"><h1>New Owner</h1></th>
-</tr>
+  <p>
+    <%= f.label :lname, 'Last Name', class: "w3-text-grey" %>
+    <%= f.text_field :lname, class: "w3-input w3-border w3-round", required: true %>
+  </p>
 
-<tr>
-<td><%= f.label :fname, 'First Name' %></td>
-<td><%= f.text_field :fname %></td>
-</tr>
+  <p>
+    <%= f.label :email, 'Email', class: "w3-text-grey" %>
+    <%= f.email_field :email, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :lname, 'Last Name' %></td>
-<td><%= f.text_field :lname %></td>
-</tr>
+  <p>
+    <%= f.label :phone, 'Primary Phone #', class: "w3-text-grey" %>
+    <%= f.telephone_field :phone, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :email, 'Email' %></td>
-<td><%= f.text_field :email %></td>
-</tr>
+  <p>
+    <%= f.label :phone2, 'Secondary Phone #', class: "w3-text-grey" %>
+    <%= f.telephone_field :phone2, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :neighborhood, 'Neighborhood' %></td>
-<td><%= f.text_field :neighborhood %></td>
-</tr>
+  <p>
+    <%= f.label :neighborhood, 'Neighborhood', class: "w3-text-grey" %>
+    <%= f.text_field :neighborhood, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :phone, 'Phone #' %></td>
-<td><%= f.telephone_field :phone %></td>
-</tr>
+  <p>
+    <%= f.label :address, 'Street Address', class: "w3-text-grey" %>
+    <%= f.text_field :address, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :phone2, 'Secondary Phone #' %></td>
-<td><%= f.text_field :phone2 %></td>
-</tr>
+  <p>
+    <%= f.label :apartment_number, 'Apartment #', class: "w3-text-grey" %>
+    <%= f.text_field :apartment_number, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :address, 'Street Address' %></td>
-<td><%= f.text_field :address %></td>
-</tr>
+  <p>
+    <%= f.label :zip_code, 'Zip Code', class: "w3-text-grey" %>
+    <%= f.text_field :zip_code, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :zip_code, 'Zip Code' %></td>
-<td><%= f.text_field :zip_code %></td>
-</tr>
+  <p>
+    <%= f.label :door_code, 'Door Code', class: "w3-text-grey" %>
+    <%= f.text_field :door_code, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :apartment_number, 'Apartment #' %></td>
-<td><%= f.text_field :apartment_number %></td>
-</tr>
+  <p>
+    <%= f.label :lockbox_code, 'Lockbox Code', class: "w3-text-grey" %>
+    <%= f.text_field :lockbox_code, class: "w3-input w3-border w3-round" %>
+  </p>
 
-<tr>
-<td><%= f.label :lockbox_code, 'Lockbox Code' %></td>
-<td><%= f.text_field :lockbox_code %></td>
-</tr>
+  <p>
+    <%= f.label :entry_instructions, 'Entry Instructions', class: "w3-text-grey" %>
+    <%= f.text_area :entry_instructions, class: "w3-input w3-border w3-round", rows: 4 %>
+  </p>
 
-<tr>
-<td><%= f.label :door_code, 'Door Code' %></td>
-<td><%= f.text_field :door_code %></td>
-</tr>
-
-<tr>
-<td><%= f.label :entry_instructions, 'Entry Instructions' %></td>
-<td><%= f.text_field :entry_instructions %></td>
-</tr>
-
-<tr>
-<td></td><td><%= f.submit %></td>
-</tr>
-
-</table>
+  <p class="w3-center w3-padding-16">
+    <%= f.submit (@owner.new_record? ? "Create Owner" : "Update Owner"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
+  </p>
 <% end %>

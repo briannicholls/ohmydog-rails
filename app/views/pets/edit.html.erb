@@ -1,3 +1,14 @@
-<h1>Edit Pet</h1>
+<div class="w3-container w3-padding-32">
+  <div class="w3-card-4 w3-round-large" style="max-width:700px; margin:auto;">
 
-<%= render 'form' %>
+    <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
+      <h1 class="w3-xlarge">Edit Pet: <%= @pet.name %></h1>
+    </header>
+
+    <div class="w3-container w3-padding-24">
+      <%# Flash messages can be added here if needed, similar to 'new' view %>
+      <%= render 'form', pet: @pet %>
+    </div>
+
+  </div>
+</div>
