@@ -1,3 +1,23 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+
+@media (max-width: 600px) { /* Adjust breakpoint as needed (W3.CSS's 'small' is <601px) */
+  .profile-attribute-row .w3-col {
+    width: 100% !important; /* Make label and value full width on small screens */
+    text-align: left !important; /* Ensure left alignment */
+  }
+  .profile-attribute-row .w3-col strong {
+    display: block; /* Make label take its own line */
+    margin-bottom: 4px;
+  }
+  hr.w3-hide-large.w3-hide-medium {
+      display: block !important; /* Show HR on small screens */
+      border: 0;
+      border-top: 1px solid #eee;
+  }
+}
+/* Hide HR on larger screens if not already handled by w3-hide classes effectively */
+@media (min-width: 993px) { /* W3.CSS 'large' breakpoint */
+  hr.w3-hide-large { display: none !important; }
+}
+  @media (min-width: 601px) and (max-width: 992px) { /* W3.CSS 'medium' breakpoint */
+  hr.w3-hide-medium { display: none !important; }
+}

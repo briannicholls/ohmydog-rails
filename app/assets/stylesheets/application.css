@@ -21,12 +21,8 @@
 .w3-hover-theme:hover {color:#fff !important; background-color:#000000 !important}
 .w3-hover-text-theme:hover {color:#000000 !important}
 .w3-hover-border-theme:hover {border-color:#000000 !important}
+/* End W3.CSS Theme - Black */
 
-/*
- * You can add your own custom CSS here, or create separate files and import them.
- * For example:
- * @import "custom";
- */
 
  body, h1, h2, h3, h4, h5, h6 { /* Added headings here */
   font-family: 'Montserrat', sans-serif !important;
