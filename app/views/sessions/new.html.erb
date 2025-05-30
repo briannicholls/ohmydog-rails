@@ -1,33 +1,38 @@
-<%= form_tag :login %>
-<table class="form w3-table">
-<tr>
-  <th><h1>Log In</h1></th>
-</tr>
-<% if flash.alert %>
-<tr>
-  <td></td><td><strong><em><%= flash.alert %></em></strong></td>
-</tr>
-<% end %>
-<tr>
-  <td><%= label_tag :email %></td>
-  <td><%= text_field_tag :email %></td>
-</tr>
+<div class="w3-container w3-padding-32"> <%# Consistent page padding %>
+  <div class="w3-card-4 w3-round-large" style="max-width:500px; margin:auto;">
 
-<tr>
-  <td><%= label_tag :password %></td>
-  <td><%= password_field_tag :password %></td>
-</tr>
+    <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
+      <h1 class="w3-xxlarge">Log In</h1>
+    </header>
 
-<tr>
-  <td></td><td><%= submit_tag 'Submit' %></td>
-</tr>
+    <%= form_tag :login, class: "w3-container w3-padding-24" do %>
+      <% if flash.alert %>
+        <div class="w3-panel w3-pale-red w3-leftbar w3-border-red w3-padding w3-margin-bottom w3-round">
+          <p><%= flash.alert %></p>
+        </div>
+      <% end %>
 
-<tr>
-  <td>Or:</td>
-</tr>
+      <p>
+        <%= label_tag :email, nil, class: "w3-text-grey" %>
+        <%= text_field_tag :email, params[:email], class: "w3-input w3-border w3-round", autofocus: true, required: true %>
+      </p>
 
-<tr>
-  <td colspan="2"><%= link_to 'Log In With Google', '/auth/google_oauth2' %></td>
-</tr>
+      <p>
+        <%= label_tag :password, nil, class: "w3-text-grey" %>
+        <%= password_field_tag :password, nil, class: "w3-input w3-border w3-round", required: true %>
+      </p>
 
-</table>
+      <p class="w3-center">
+        <%= submit_tag "Log In", class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large w3-margin-top" %>
+      </p>
+
+      <div class="w3-center w3-margin-top w3-padding-top-16 w3-border-top">
+        <p class="w3-text-grey">Or log in with:</p>
+        <%= link_to '/auth/google_oauth2', class: "w3-button w3-blue w3-round w3-hover-light-blue" do %>
+          <i class="fa fa-google"></i> Google
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
