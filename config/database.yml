@@ -1,6 +1,6 @@
 default: &default
   adapter: postgresql
-  user: <%= ENV['DB_USER'] %>
+  user: ohmydog
   password: <%= ENV['DB_PASSWORD'] %>
   port: 5432
 

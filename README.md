@@ -32,6 +32,18 @@ By default, new users are given the attribute `role: employee`, but this has no 
 
 Pets, Owners, and Walks can be viewed and created in their respective views via the nav bar.
 
+# Development
+
+Create a PG user `ohmydog` for the application to use:
+
+```sql
+CREATE USER ohmydog WITH PASSWORD 'your_chosen_password';
+```
+
+Set these values in a `.env` file. See `.env.sample`
+
+Run `rails db:create`, `rails db:migrate`, then seed with `rails db:seed`. Start the server with `rails s`.
+
 # License
 
 Copyright (C) 2020 Brian Nicholls
