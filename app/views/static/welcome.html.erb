@@ -1,22 +1,23 @@
-<div class="w3-container w3-center w3-padding-64">
+<div class="w3-container w3-center w3-padding-64 welcome-container" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;">
   <div class="w3-container w3-padding-bottom">
-    <%= image_tag "logo.avif", alt: "Oh My Dog! Logo", class: "w3-image", style: "max-width:200px; margin:auto;" %>
+    <%# Adjusted max-width for better mobile display. We can refine this with CSS media queries if needed. %>
+    <%= image_tag "logo.avif", alt: "Oh My Dog! Logo", class: "w3-image welcome-logo", style: "margin:auto;" %>
   </div>
 
   <header class="w3-container w3-center">
-    <h1 class="w3-jumbo">Welcome to<br/>Oh My Dog!</h1>
+    <h1 class="welcome-heading">Welcome to<br/>Oh My Dog!</h1>
   </header>
 
   <div class="w3-container w3-padding-32">
-    <p class="w3-xlarge">
+    <p class="welcome-text">
       Here you can easily manage your pets, walkers, and schedule walks.
       <!-- Feel free to customize this description! -->
     </p>
   </div>
 
-  <nav class="w3-container w3-padding-32">
-    <%= link_to 'Log In', '/login', class: "w3-button w3-theme-d1 w3-round-large w3-large w3-margin-bottom" %>
-    <%= link_to 'Register', '/signup', class: "w3-button w3-theme-l4 w3-text-theme w3-border w3-border-theme w3-round-large w3-large w3-margin-bottom" %>
+  <nav class="w3-container w3-padding-32 welcome-nav">
+    <%= link_to 'Log In', '/login', class: "w3-button w3-theme-d1 w3-round-large w3-large w3-margin-bottom welcome-button" %>
+    <%= link_to 'Register', '/signup', class: "w3-button w3-theme-l4 w3-text-theme w3-border w3-border-theme w3-round-large w3-large w3-margin-bottom welcome-button" %>
   </nav>
 
   <%# The Font Awesome icon placeholder has been removed as we are now using the logo image. %>

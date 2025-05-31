@@ -33,9 +33,6 @@ body {
   background-color: transparent;
 }
 
-.main-content {
-  background-color: #000000;
-}
 
 .custom-date-select-container select,
 .custom-time-select-container select {
