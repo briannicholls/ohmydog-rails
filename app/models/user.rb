@@ -5,12 +5,9 @@ class User < ApplicationRecord
   has_many :pets, through: :walks
 
   #include ActiveModel::Validations
-  #validates_with FnameValidator
-  #validates_with LnameValidator
   validates :fname, presence: true
   validates :lname, presence: true
   validates :email, presence: true, uniqueness: true
-
 
   def name
     "#{fname} #{lname}"
@@ -26,5 +23,13 @@ class User < ApplicationRecord
 
   def customer?
     self.role == 'customer'
+  end
+
+  def active?
+    self.status == 'active'
+  end
+
+  def inactive?
+    self.status == 'inactive'
   end
 end
