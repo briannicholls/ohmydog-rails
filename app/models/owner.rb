@@ -19,7 +19,7 @@ class Owner < ApplicationRecord
   end
 
   def update_neighborhood
-    self.neighborhood = NycNeighborhoods.neighborhood(zip_code).name
+    self.neighborhood = NycNeighborhoods.neighborhood(zip_code)&.name
   end
 
 end

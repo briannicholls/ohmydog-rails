@@ -5,7 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-def call
+def call_production
+  User.find_by!(email: 'ohmydognyc@gmail.com') do |user|
+    user.role = 'admin'
+  end
+end
+
+def call_development
+  User.find_by!(email: 'nichol88@gmail.com') do |user|
+    user.role = 'admin'
+  end
   10.times.with_index do |i|
 
     Owner.create(
@@ -51,4 +60,4 @@ def call
   end
 end
 
-#call()
+send("call_#{Rails.env}")
