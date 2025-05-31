@@ -15,8 +15,8 @@
 
   <body class="w3-mobile">
     <div  class="w3-bar w3-black topnav">
-      <% if logged_in? %>
-        <nav>
+      <nav>
+        <% if logged_in? %>
           <% if current_user.customer? %>
             <a class="w3-bar-item" href="/walks">Walks</a>
           <% elsif current_user.employee? || current_user.admin? %>
@@ -26,8 +26,12 @@
             <a class="w3-bar-item" href="/walks">Walks</a>
           <% end %>
           <a class="w3-bar-item" href="/logout">Log Out</a>
-        </nav>
-      <% end %>
+        <% else %>
+          <%= link_to "Home", "/", class: "w3-bar-item" %>
+          <%= link_to "Log In", "/login", class: "w3-bar-item" %>
+          <%= link_to "Sign Up", "/signup", class: "w3-bar-item" %>
+        <% end %>
+      </nav>
     </div>
 
     <p class="notice"><%= notice %></p>
