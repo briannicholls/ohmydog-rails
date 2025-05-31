@@ -64,3 +64,5 @@ gem 'nyc_neighborhoods'
 gem 'aws-sdk-s3', require: false
 
 gem 'devise'
+
+gem "after_party", "~> 2.0"
