@@ -14,23 +14,21 @@
            { label: "Email", value: @user.email },
            { label: "Phone", value: (@user.phone.present? ? link_to(@user.phone, "tel:#{@user.phone}") : nil) },
            { label: "Status", value: @user.status },
-           { label: "Member Since", value: @user.created_at.strftime("%B %d, %Y") }
+           { label: "Member Since", value: @user.created_at.strftime("%B %d, %Y") },
          ] %>
 
       <% attributes.each_with_index do |attr, index| %>
-        <% if attr[:value].present? %>
-          <div class="w3-row w3-padding-small profile-attribute-row">
-            <div class="w3-col m4 l3"> <%# Medium 1/3, Large 1/4 for label %>
-              <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
-            </div>
-            <div class="w3-col m8 l9"> <%# Medium 2/3, Large 3/4 for value %>
-              <%= attr[:value] %>
-            </div>
+        <div class="w3-row w3-padding-small profile-attribute-row">
+          <div class="w3-col m4 l3"> <%# Medium 1/3, Large 1/4 for label %>
+            <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
           </div>
-          <%# Add hr only if it's not the last visible attribute AND there are more attributes to show on mobile %>
-          <% if index < attributes.select { |a| a[:value].present? }.size - 1 %>
-            <hr class="profile-hr-mobile">
-          <% end %>
+          <div class="w3-col m8 l9"> <%# Medium 2/3, Large 3/4 for value %>
+            <%= attr[:value] %>
+          </div>
+        </div>
+        <%# Add hr only if it's not the last visible attribute AND there are more attributes to show on mobile %>
+        <% if index < attributes.select { |a| a[:value].present? }.size - 1 %>
+          <hr class="profile-hr-mobile">
         <% end %>
       <% end %>
     </div>
