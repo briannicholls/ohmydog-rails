@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :redirect_if_not_logged_in
+  before_action :authenticate_user!
   before_action :set_pet, only: [:show, :edit, :update]
 
   def index

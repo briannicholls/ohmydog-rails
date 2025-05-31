@@ -1,22 +1,15 @@
 class ApplicationController < ActionController::Base
-  # before_action :require_admin, only: [:admin_dashboard, :manage_users]
 
-  def require_admin
-    redirect_to root_path, alert: "You are not authorized to access this page." unless current_user&.role == 'admin'
+  protected
+
+  # Devise: Where to redirect users after sign in.
+  def after_sign_in_path_for(resource_or_scope)
+    walks_path
   end
 
-  def logged_in?
-    !!(session[:user_id]) # && User.exists?(session[:user_id]))
-  end
-  helper_method :logged_in?
-
-  def current_user
-    User.find_by id: session[:user_id]
-  end
-  helper_method :current_user
-
-  def redirect_if_not_logged_in
-    redirect_to root_path if !logged_in?
+  # Devise: Where to redirect users after sign out.
+  def after_sign_out_path_for(resource_or_scope)
+    root_path # welcome page
   end
 
 end

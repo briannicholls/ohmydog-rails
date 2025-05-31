@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :redirect_if_not_logged_in, except: [:signup]
+  before_action :authenticate_user! #, except: [:signup]
   before_action :set_user, only: [:show, :edit, :update]
   before_action :authorize_user_modification, only: [:edit, :update]
   include ActionView::Helpers::NumberHelper
@@ -21,15 +21,15 @@ class UsersController < ApplicationController
     end
   end
 
-  def signup
-    @user = User.create user_params
-    if @user.persisted?
-      session[:user_id] = @user.id
-      redirect_to user_path(@user), notice: 'Signup successful!'
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+  # def signup
+  #   @user = User.create user_params
+  #   if @user.persisted?
+  #     session[:user_id] = @user.id
+  #     redirect_to user_path(@user), notice: 'Signup successful!'
+  #   else
+  #     render :new, status: :unprocessable_entity
+  #   end
+  # end
 
   def show
   end
