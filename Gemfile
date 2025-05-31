@@ -5,8 +5,6 @@ ruby '3.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.0.2'
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3', '~> 1.4'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
@@ -16,12 +14,6 @@ gem 'puma', '~> 4.1'
 # Modern asset pipeline (Node-free approach)
 gem 'propshaft'
 gem 'importmap-rails'
-# gem 'dartsass-rails'
-
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-# gem 'webpacker', '~> 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
 gem "turbo-rails"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -71,3 +63,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'nyc_neighborhoods'
 
 gem 'aws-sdk-s3', require: false
+
+gem 'devise'
