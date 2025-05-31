@@ -53,6 +53,11 @@
     <%= f.text_area :appearance, class: "w3-input w3-border w3-round", rows: 3 %>
   </p>
 
+  <p>
+    <%= f.label :image, "Image", class: "w3-text-grey" %>
+    <%= f.file_field :image, class: "w3-input w3-border w3-round" %>
+  </p>
+
   <p class="w3-center w3-padding-16">
     <%= f.submit (@pet.new_record? ? "Create Pet" : "Update Pet"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
   </p>

@@ -36,6 +36,11 @@
           <div class="w3-col m8 l9">
             <%= attr[:value] %>
           </div>
+          <% if attr[:label] == "Entry Instructions" %>
+            <% if @owner.entry_instructions_photo.attached? %>
+              <%= image_tag @owner.entry_instructions_photo, class: "w3-margin-top", style: "width:100%; height:auto; object-fit: cover;" %>
+            <% end %>
+          <% end %>
         </div>
         <hr class="profile-hr-mobile">
       <% end %>

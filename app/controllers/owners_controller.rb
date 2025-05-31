@@ -56,7 +56,8 @@ class OwnersController < ApplicationController
       :lockbox_code,
       :entry_instructions,
       :neighborhood,
-      :phone2
+      :phone2,
+      :entry_instructions_photo
     )
   end
 end

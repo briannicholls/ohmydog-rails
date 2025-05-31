@@ -1,7 +1,7 @@
 class Owner < ApplicationRecord
   has_many :pets, dependent: :nullify
   has_many :walks, through: :pets
-
+  has_one_attached :entry_instructions_photo
 
   validates :fname, presence: true
   # validates :lname, presence: true

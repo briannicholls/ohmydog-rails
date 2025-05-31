@@ -71,6 +71,11 @@
     <%= f.text_area :entry_instructions, class: "w3-input w3-border w3-round", rows: 4 %>
   </p>
 
+  <p>
+    <%= f.label :entry_instructions_photo, "Lockbox / Entry Photo", class: "w3-text-grey" %>
+    <%= f.file_field :entry_instructions_photo, class: "w3-input w3-border w3-round" %>
+  </p>
+
   <p class="w3-center w3-padding-16">
     <%= f.submit (@owner.new_record? ? "Create Owner" : "Update Owner"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
   </p>
