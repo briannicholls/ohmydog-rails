@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def name
     "#{fname} #{lname}"
   end
+
+  def admin?
+    self.role == 'admin'
+  end
 end

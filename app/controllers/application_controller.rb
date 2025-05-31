@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
+  # before_action :require_admin, only: [:admin_dashboard, :manage_users]
 
+  def require_admin
+    redirect_to root_path, alert: "You are not authorized to access this page." unless current_user&.role == 'admin'
+  end
 
   def logged_in?
     !!(session[:user_id]) # && User.exists?(session[:user_id]))
