@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :walks do
     get 'all', on: :collection
     resources :pets, only: [:show]
