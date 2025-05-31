@@ -19,4 +19,12 @@ class User < ApplicationRecord
   def admin?
     self.role == 'admin'
   end
+
+  def employee?
+    self.role == 'employee'
+  end
+
+  def customer?
+    self.role == 'customer'
+  end
 end

@@ -1,5 +1,6 @@
 class WalksController < ApplicationController
   before_action :redirect_if_not_logged_in
+  after_action :filter_walks
 
   def index
     @walks ||= Walk.today.order(:window_start)
@@ -41,10 +42,18 @@ class WalksController < ApplicationController
 
   def all
     @walks = Walk.all.order(:window_start)
+    filter_walks
     render :index
   end
 
   private
+
+  def filter_walks
+    @walks = @walks.where(user_id: current_user.id) if current_user.customer?
+    if @walk && @walk.user_id != current_user.id && current_user.customer?
+      redirect_to root_path, alert: "You are not authorized to view this walk."
+    end
+  end
 
   def walk_params
     params.require(:walk).permit(

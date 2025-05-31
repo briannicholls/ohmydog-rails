@@ -16,13 +16,17 @@
   <body class="w3-mobile">
     <div  class="w3-bar w3-black topnav">
         <% if logged_in? %>
-        <nav>
-          <a class="w3-bar-item" href="/users">Users</a>
-          <a class="w3-bar-item" href="/owners">Owners</a>
-          <a class="w3-bar-item" href="/pets">Pets</a>
-          <a class="w3-bar-item" href="/walks">Walks</a>
-          <a class="w3-bar-item" href="/logout">Log Out</a>
-        </nav>
+          <nav>
+            <% if current_user.customer? %>
+              <a class="w3-bar-item" href="/walks">Walks</a>
+            <% elsif current_user.employee? || current_user.admin? %>
+              <a class="w3-bar-item" href="/users">Users</a>
+              <a class="w3-bar-item" href="/owners">Owners</a>
+              <a class="w3-bar-item" href="/pets">Pets</a>
+              <a class="w3-bar-item" href="/walks">Walks</a>
+            <% end %>
+            <a class="w3-bar-item" href="/logout">Log Out</a>
+          </nav>
         <% end %>
       </div>
 

@@ -12,16 +12,18 @@
             <% end %>
           </h1>
         </div>
-        <div class="w3-col m6 l5 w3-right-align w3-margin-top-small">
-          <%= link_to new_walk_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-right' do %>
-            <i class="fa fa-plus"></i> Add New Walk
-          <% end %>
-          <% if !current_page?(all_walks_path) %>
-            <%= link_to 'View All Walks', all_walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
-          <% else %>
-             <%= link_to "View Today's Walks", walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
-          <% end %>
-        </div>
+        <% unless current_user.customer? %>
+          <div class="w3-col m6 l5 w3-right-align w3-margin-top-small">
+            <%= link_to new_walk_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-right' do %>
+              <i class="fa fa-plus"></i> Add New Walk
+            <% end %>
+            <% if !current_page?(all_walks_path) %>
+              <%= link_to 'View All Walks', all_walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
+            <% else %>
+              <%= link_to "View Today's Walks", walks_path, class: 'w3-button w3-blue w3-round w3-small w3-hover-light-blue' %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </header>
 

@@ -1,5 +1,4 @@
-<!-- This form is for entry of all user details, i.e. for admin use only -->
-<!-- For a user to create an account for himself/herself, use static#signup -->
+<!-- This form is for entry of all user details. Only admins can update roles. -->
 
 <%= form_for @user, html: { class: "w3-container" } do |f| %>
   <% if @user.errors.any? %>
@@ -34,17 +33,22 @@
     <%= f.telephone_field :phone, class: "w3-input w3-border w3-round" %>
   </p>
 
-  <div class="w3-margin-bottom"> <%# Grouping for radio buttons %>
-    <%= f.label :role, 'Role', class: "w3-text-grey w3-margin-bottom" %>
-    <p><%= radio_button_tag 'user[role]', 'employee', @user.role == 'employee', class: "w3-radio" %>
-    <%= label_tag 'user_role_employee', 'Employee', class: "w3-validate" %></p>
-    <p><%= radio_button_tag 'user[role]', 'admin', @user.role == 'admin', class: "w3-radio" %>
-    <%= label_tag 'user_role_admin', 'Administrator', class: "w3-validate" %></p>
-  </div>
+  <!-- Only allow admin to change role -->
+  <% if current_user.admin? %>
+    <div class="w3-margin-bottom"> <%# Grouping for radio buttons %>
+      <%= f.label :role, 'Role', class: "w3-text-grey w3-margin-bottom" %>
+      <p><%= radio_button_tag 'user[role]', 'customer', @user.role == 'customer', class: "w3-radio" %>
+      <%= label_tag 'user_role_customer', 'Customer', class: "w3-validate" %></p>
+      <p><%= radio_button_tag 'user[role]', 'employee', @user.role == 'employee', class: "w3-radio" %>
+      <%= label_tag 'user_role_employee', 'Employee', class: "w3-validate" %></p>
+      <p><%= radio_button_tag 'user[role]', 'admin', @user.role == 'admin', class: "w3-radio" %>
+      <%= label_tag 'user_role_admin', 'Administrator', class: "w3-validate" %></p>
+    </div>
+  <% end %>
 
   <p>
     <%= f.label :password, 'Password', class: "w3-text-grey" %>
-    <span class="w3-small w3-text-grey">(Leave blank if you don't want to change it for an existing user)</span>
+    <span class="w3-small w3-text-grey">(Leave blank if you don't want to change it for this user)</span>
     <%= f.password_field :password, class: "w3-input w3-border w3-round", autocomplete: "new-password" %>
   </p>
 
