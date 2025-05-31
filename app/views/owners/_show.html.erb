@@ -28,7 +28,7 @@
        ] %>
 
     <% attributes.each_with_index do |attr, index| %>
-      <% if attr[:value].present? %>
+      <% if attr[:value].present? || attr[:label] == "Entry Instructions" %>
         <div class="w3-row w3-padding-small profile-attribute-row">
           <div class="w3-col m4 l3">
             <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
