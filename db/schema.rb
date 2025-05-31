@@ -10,63 +10,63 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2020_03_17_234650) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_31_000339) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "owners", force: :cascade do |t|
     t.string "address"
     t.string "apartment_number"
-    t.datetime "created_at", null: false
+    t.string "zip_code"
     t.string "door_code"
-    t.string "email"
+    t.string "lockbox_code"
     t.string "entry_instructions"
+    t.string "neighborhood"
+    t.string "phone2"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "fname"
     t.string "lname"
-    t.string "lockbox_code"
-    t.string "neighborhood"
+    t.string "email"
     t.string "phone"
-    t.string "phone2"
-    t.datetime "updated_at", null: false
-    t.integer "zip_code"
   end
 
   create_table "pets", force: :cascade do |t|
-    t.string "appearance"
-    t.datetime "birthday", precision: nil
-    t.string "breed"
-    t.datetime "created_at", null: false
-    t.string "gender"
-    t.string "image"
     t.string "name"
-    t.string "notes"
     t.integer "owner_id"
+    t.string "breed"
+    t.datetime "birthday", precision: nil
     t.string "temperament"
+    t.string "notes"
+    t.string "appearance"
+    t.string "image"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at", null: false
     t.string "email"
     t.string "fname"
     t.string "lname"
     t.string "password_digest"
-    t.string "phone"
     t.string "role", default: "customer"
+    t.string "phone"
     t.string "status", default: "active"
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "walks", force: :cascade do |t|
+    t.datetime "window_start", precision: nil
+    t.datetime "window_end", precision: nil
+    t.integer "user_id"
+    t.integer "pet_id"
+    t.string "notes"
+    t.string "walk_type"
     t.boolean "completed?"
     t.datetime "created_at", null: false
-    t.datetime "date", precision: nil
-    t.string "notes"
-    t.integer "pet_id"
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.string "walk_type"
-    t.datetime "window_end", precision: nil
-    t.datetime "window_start", precision: nil
+    t.datetime "date", precision: nil
   end
 end

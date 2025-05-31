@@ -12,8 +12,14 @@ class Owner < ApplicationRecord
 
   accepts_nested_attributes_for :pets
 
+  before_save :update_neighborhood
+
   def name
     "#{fname} #{lname}"
+  end
+
+  def update_neighborhood
+    self.neighborhood = NycNeighborhoods.neighborhood(zip_code).name
   end
 
 end

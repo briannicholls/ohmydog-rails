@@ -8,7 +8,7 @@ Current goals for this project are:
 - add support for making walks recurring
 - add support for receipts, allowing a Rate to be assigned to an owner so that we can keep track of balances and what walks have been paid for
 - add image upload support for pets
-- stretch goal: create client-facing portions of the cite, possibly allowing customers to schedule walks
+- stretch goal: create client-facing portions of the site, possibly allowing customers to schedule walks
 
 Blog post: http://briannicholls.home.blog/2020/03/21/my-first-rails-project-managing-a-dog-walking-business/
 
