@@ -1,6 +1,7 @@
-<div class="w3-container w3-padding-32">
-  <div class="w3-card-4 w3-round-large" style="max-width:700px; margin:auto;">
+<div class="w3-container w3-padding-16">
+  <div class="w3-card-4 w3-round-large" style="max-width:700px; margin:auto; overflow: hidden;">
 
+    <!-- Card Header with title & subtitle -->
     <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
       <% if defined?(image_tag_html) && image_tag_html.present? %>
         <%= image_tag_html.html_safe %>
@@ -11,7 +12,8 @@
       <% end %>
     </header>
 
-    <div class="w3-container w3-padding-24">
+    <!-- Card Content -->
+    <div class="w3-container w3-padding-16">
       <% attributes.each_with_index do |attr, index| %>
         <% if attr[:value].present? || (defined?(show_blank_values) && show_blank_values) %>
           <div class="w3-row w3-padding-small profile-attribute-row">

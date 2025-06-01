@@ -26,7 +26,6 @@ class WalksController < ApplicationController
 
   def update
     @walk = Walk.find params[:id]
-    #binding.pry
     if @walk.update walk_params
       redirect_to walk_path(@walk)
     else
