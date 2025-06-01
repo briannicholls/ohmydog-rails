@@ -1,56 +1,38 @@
-<div class="w3-card-4 w3-round-large w3-margin-bottom">
+<%
+  address_value = nil
+  if @owner.address.present?
+    add = @owner.address
+    add += "<br>#{@owner.zip_code}" if @owner.zip_code.present?
+    add += "<br>" + link_to('View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank', class: 'w3-text-blue w3-hover-text-light-blue')
+    address_value = add.html_safe
+  end
 
-  <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
-    <h1 class="w3-xxlarge"><%= link_to @owner.name, owner_path(@owner), class: "w3-text-white w3-hover-text-light-grey" %></h1>
-    <% if @owner.neighborhood.present? %>
-      <p class="w3-medium w3-text-light-grey"><%= @owner.neighborhood %></p>
-    <% end %>
-  </header>
+  entry_instructions_value = @owner.entry_instructions
+  if @owner.entry_instructions_photo.attached?
+    entry_instructions_value += "<br>" + image_tag(@owner.entry_instructions_photo, class: "w3-margin-top", style: "width:100%; height:auto; object-fit: cover;")
+    entry_instructions_value = entry_instructions_value.html_safe
+  end
 
-  <div class="w3-container w3-padding-24">
-    <% attributes = [
-         { label: "Email", value: @owner.email },
-         { label: "Primary Phone", value: (@owner.phone.present? ? link_to(@owner.phone, "tel:#{@owner.phone}") : nil) },
-         { label: "Secondary Phone", value: (@owner.phone2.present? ? link_to(@owner.phone2, "tel:#{@owner.phone2}") : nil) },
-         { label: "Address", value: (
-           if @owner.address.present?
-             add = @owner.address
-             add += "<br>#{@owner.zip_code}" if @owner.zip_code.present?
-             add += "<br>" + link_to('View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank', class: 'w3-text-blue w3-hover-text-light-blue')
-             add.html_safe
-           end
-         )},
-         { label: "Apartment #", value: @owner.apartment_number },
-         { label: "Door Code", value: @owner.door_code },
-         { label: "Lockbox Code", value: @owner.lockbox_code },
-         { label: "Entry Instructions", value: @owner.entry_instructions },
-         { label: "Profile Created", value: @owner.created_at.present? ? @owner.created_at.strftime("%B %d, %Y") : nil }
-       ] %>
+  attributes = [
+    { label: "Email", value: @owner.email },
+    { label: "Primary Phone", value: (@owner.phone.present? ? link_to(@owner.phone, "tel:#{@owner.phone}") : nil) },
+    { label: "Secondary Phone", value: (@owner.phone2.present? ? link_to(@owner.phone2, "tel:#{@owner.phone2}") : nil) },
+    { label: "Address", value: address_value },
+    { label: "Apartment #", value: @owner.apartment_number },
+    { label: "Door Code", value: @owner.door_code },
+    { label: "Lockbox Code", value: @owner.lockbox_code },
+    { label: "Entry Instructions", value: entry_instructions_value },
+    { label: "Profile Created", value: @owner.created_at.present? ? @owner.created_at.strftime("%B %d, %Y") : nil }
+  ]
 
-    <% attributes.each_with_index do |attr, index| %>
-      <% if attr[:value].present? || attr[:label] == "Entry Instructions" %>
-        <div class="w3-row w3-padding-small profile-attribute-row">
-          <div class="w3-col m4 l3">
-            <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
-          </div>
-          <div class="w3-col m8 l9">
-            <%= attr[:value] %>
-          </div>
-          <% if attr[:label] == "Entry Instructions" %>
-            <% if @owner.entry_instructions_photo.attached? %>
-              <%= image_tag @owner.entry_instructions_photo, class: "w3-margin-top", style: "width:100%; height:auto; object-fit: cover;" %>
-            <% end %>
-          <% end %>
-        </div>
-        <hr class="profile-hr-mobile">
-      <% end %>
-    <% end %>
-  </div>
+  # Determine the edit path based on the show_edit_button variable
+  owner_edit_path = (defined?(show_edit_button) && show_edit_button) ? edit_owner_path(@owner) : nil
+%>
 
-  <% if defined?(show_edit_button) && show_edit_button %>
-    <footer class="w3-container w3-center w3-light-grey w3-padding-16 w3-round-bottom-large">
-      <%= link_to "Edit Owner", edit_owner_path(@owner), class: "w3-button w3-black w3-round-large w3-hover-dark-grey" %>
-    </footer>
-  <% end %>
-
-</div>
+<%= render 'layouts/show_page',
+           title: @owner.name,
+           subtitle: @owner.neighborhood,
+           attributes: attributes,
+           edit_path: owner_edit_path, # Use the conditional edit path
+           resource_name: :owner,
+           show_blank_values: false %>

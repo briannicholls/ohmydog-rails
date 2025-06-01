@@ -32,10 +32,22 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
+
+  # Set delivery method to SMTP and configure SMTP settings for Mailtrap
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'sandbox.smtp.mailtrap.io',
+    port:                 587,
+    domain:               'app.ohmydognyc.com',
+    user_name:            Rails.application.credentials.dig(:smtp, :username),
+    password:             Rails.application.credentials.dig(:smtp, :password),
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }

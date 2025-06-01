@@ -1,5 +1,5 @@
 class WalksController < ApplicationController
-  before_action :redirect_if_not_logged_in
+  before_action :authenticate_user!
   after_action :filter_walks
 
   def index
@@ -26,7 +26,6 @@ class WalksController < ApplicationController
 
   def update
     @walk = Walk.find params[:id]
-    #binding.pry
     if @walk.update walk_params
       redirect_to walk_path(@walk)
     else

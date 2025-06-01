@@ -1,19 +1,9 @@
-<div class="w3-container w3-padding-32">
-  <div class="w3-card-4 w3-round-large" style="max-width:700px; margin:auto;">
-
-    <header class="w3-container w3-center w3-black w3-padding-large w3-round-top-large">
-      <h1 class="w3-xlarge">Edit User: <%= @user.name %></h1>
-    </header>
-
-    <div class="w3-container w3-padding-24">
-      <% if flash.alert %>
-        <div class="w3-panel w3-red w3-padding w3-margin-bottom w3-round">
-          <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright w3-round">&times;</span>
-          <p><%= flash.alert %></p>
-        </div>
-      <% end %>
-      <%= render 'form', user: @user %>
+<%= render layout: 'shared/w3_content_card', locals: { title: "Edit User: #{@user.name}", max_width: "700px" } do %>
+  <% if flash.alert %>
+    <div class="w3-panel w3-red w3-padding w3-margin-bottom w3-round">
+      <span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright w3-round">&times;</span>
+      <p><%= flash.alert %></p>
     </div>
-
-  </div>
-</div>
+  <% end %>
+  <%= render 'form', user: @user %>
+<% end %>

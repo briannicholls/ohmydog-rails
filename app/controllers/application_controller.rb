@@ -1,22 +1,28 @@
 class ApplicationController < ActionController::Base
-  # before_action :require_admin, only: [:admin_dashboard, :manage_users]
+  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_current_user
 
-  def require_admin
-    redirect_to root_path, alert: "You are not authorized to access this page." unless current_user&.role == 'admin'
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:fname, :lname, :email, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:fname, :lname, :email, :password, :password_confirmation, :current_password])
   end
 
-  def logged_in?
-    !!(session[:user_id]) # && User.exists?(session[:user_id]))
+  # Devise: Where to redirect users after sign in.
+  def after_sign_in_path_for(resource_or_scope)
+    walks_path
   end
-  helper_method :logged_in?
 
-  def current_user
-    User.find_by id: session[:user_id]
+  # Devise: Where to redirect users after sign out.
+  def after_sign_out_path_for(resource_or_scope)
+    root_path # welcome page
   end
-  helper_method :current_user
 
-  def redirect_if_not_logged_in
-    redirect_to root_path if !logged_in?
+  private
+
+  def set_current_user
+    Thread.current[:current_user] = current_user # current_user from Devise
   end
 
 end

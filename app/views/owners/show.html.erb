@@ -1,0 +1,35 @@
+<%
+  address_value = nil
+  if @owner.address.present?
+    add = @owner.address
+    add += "<br>#{@owner.zip_code}" if @owner.zip_code.present?
+    add += "<br>" + link_to('View on Google Maps', "https://www.google.com/maps/place/#{@owner.address.gsub(' ', '+')},+#{@owner.zip_code}", target: '_blank', class: 'w3-text-blue w3-hover-text-light-blue')
+    address_value = add.html_safe
+  end
+
+  entry_instructions_value = @owner.entry_instructions
+  if @owner.entry_instructions_photo.attached?
+    entry_instructions_value += "<br>" + image_tag(@owner.entry_instructions_photo, class: "w3-margin-top", style: "width:100%; height:auto; object-fit: cover;")
+    entry_instructions_value = entry_instructions_value.html_safe
+  end
+
+  attributes = [
+    { label: "Email", value: @owner.email },
+    { label: "Primary Phone", value: (@owner.phone.present? ? link_to(@owner.phone, "tel:#{@owner.phone}") : nil) },
+    { label: "Secondary Phone", value: (@owner.phone2.present? ? link_to(@owner.phone2, "tel:#{@owner.phone2}") : nil) },
+    { label: "Address", value: address_value },
+    { label: "Apartment #", value: @owner.apartment_number },
+    { label: "Door Code", value: @owner.door_code },
+    { label: "Lockbox Code", value: @owner.lockbox_code },
+    { label: "Entry Instructions", value: entry_instructions_value },
+    { label: "Profile Created", value: @owner.created_at.present? ? @owner.created_at.strftime("%B %d, %Y") : nil }
+  ]
+%>
+
+<%= render 'layouts/show_page',
+           title: @owner.name,
+           subtitle: @owner.neighborhood,
+           attributes: attributes,
+           edit_path: edit_owner_path(@owner),
+           resource_name: :owner,
+           show_blank_values: false %> 

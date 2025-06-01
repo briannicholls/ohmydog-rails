@@ -1,0 +1,27 @@
+<%= render layout: 'devise/shared/w3_card_outer_wrapper', locals: { title: "Change your password" } do %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "w3-container w3-padding-24" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
+
+    <p>
+      <%= f.label :password, "New password", class: "w3-text-grey" %><br />
+      <% if @minimum_password_length %>
+        <em class="w3-small w3-text-grey">(<%= @minimum_password_length %> characters minimum)</em><br />
+      <% end %>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w3-input w3-border w3-round", required: true %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation, "Confirm new password", class: "w3-text-grey" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w3-input w3-border w3-round", required: true %>
+    </p>
+
+    <p class="w3-center w3-margin-top">
+      <%= f.submit "Change my password", class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
+    </p>
+  <% end %>
+
+  <div class="w3-container w3-center w3-padding-16">
+    <%= render "devise/shared/links" %>
+  </div>
+<% end %>

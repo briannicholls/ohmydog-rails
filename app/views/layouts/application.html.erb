@@ -12,28 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   </head>
 
-
   <body class="w3-mobile">
-    <div  class="w3-bar w3-black topnav">
-        <% if logged_in? %>
-          <nav>
-            <% if current_user.customer? %>
-              <a class="w3-bar-item" href="/walks">Walks</a>
-            <% elsif current_user.employee? || current_user.admin? %>
-              <a class="w3-bar-item" href="/users">Users</a>
-              <a class="w3-bar-item" href="/owners">Owners</a>
-              <a class="w3-bar-item" href="/pets">Pets</a>
-              <a class="w3-bar-item" href="/walks">Walks</a>
-            <% end %>
-            <a class="w3-bar-item" href="/logout">Log Out</a>
-          </nav>
-        <% end %>
-      </div>
+    <%= render 'layouts/navigation' %>
+
+    <%= render 'layouts/flash_messages' %>
 
     <%= yield %>
-    <br><br>
 
-    <% if logged_in? %>
+    <% if user_signed_in? %>
       <div class="w3-bar w3-center w3-light-grey">
         <span class="w3-small"><em><%= "Logged in as #{current_user.name} (#{current_user.email})" %></em></span>
       </div>
