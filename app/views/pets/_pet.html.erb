@@ -1,48 +1,21 @@
-<div class="w3-card-4 w3-round-large w3-margin-bottom">
+<% 
+  image_html = nil
+  if @pet.image.attached?
+    image_html = image_tag(@pet.image, class: "w3-circle w3-margin-bottom", style: "width:150px; height:150px; object-fit: cover;")
+  end
 
-  <header class="w3-container w3-center w3-theme-d1 w3-padding-large w3-round-top-large"> <%# Use a pet-specific theme color or w3-black %>
-    <% if @pet.image.attached? %>
-      <%= image_tag @pet.image, class: "w3-circle w3-margin-bottom", style: "width:150px; height:150px; object-fit: cover;" %>
-    <% end %>
-    <h1 class="w3-xxlarge"><%= @pet.name %></h1>
-    <% if @pet.breed.present? %>
-      <p class="w3-medium w3-text-light-grey"><%= @pet.breed %></p>
-    <% end %>
-  </header>
-
-  <div class="w3-container w3-padding-24">
-    <% attributes = [
-         { label: "Birthday", value: @pet.birthday&.strftime("%B %d, %Y") }, # Added safe navigation and formatting
-         { label: "Gender", value: @pet.gender },
-         { label: "Appearance", value: @pet.appearance },
-         { label: "Notes", value: @pet.notes }
-         # Add other relevant pet attributes here
-       ] %>
-
-    <% attributes.each_with_index do |attr, index| %>
-      <% if attr[:value].present? %>
-        <div class="w3-row w3-padding-small profile-attribute-row">
-          <div class="w3-col m4 l3">
-            <strong class="w3-text-grey"><%= attr[:label] %>:</strong>
-          </div>
-          <div class="w3-col m8 l9">
-            <%= attr[:value] %>
-          </div>
-        </div>
-        <% if index < attributes.select { |a| a[:value].present? }.size - 1 %>
-          <hr class="profile-hr-mobile">
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <footer class="w3-container w3-center w3-light-grey w3-padding-16 w3-round-bottom-large">
-    <%= link_to "Edit Pet", edit_pet_path(@pet), class: "w3-button w3-black w3-round-large w3-hover-dark-grey" %>
-  </footer>
-
-</div>
-
-<%#
-  Reminder: The CSS for .profile-attribute-row and .profile-hr-mobile should be in a global stylesheet
-  (e.g., application.css or users.css). These are the same styles used for owner and user profiles.
+  attributes = [
+    { label: "Birthday", value: @pet.birthday&.strftime("%B %d, %Y") },
+    { label: "Gender", value: @pet.gender },
+    { label: "Appearance", value: @pet.appearance },
+    { label: "Notes", value: @pet.notes }
+  ]
 %>
+
+<%= render 'layouts/show_page',
+           title: @pet.name,
+           subtitle: @pet.breed,
+           attributes: attributes,
+           edit_path: edit_pet_path(@pet),
+           resource_name: :pet,
+           image_tag_html: image_html %>

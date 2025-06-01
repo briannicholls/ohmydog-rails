@@ -1,0 +1,32 @@
+<div class="w3-container w3-section">
+  <div class="w3-card-4 w3-round-large">
+    <header class="w3-container w3-black w3-padding w3-round-top-large">
+      <div class="w3-row">
+        <div class="w3-col m8 l9">
+          <h1 class="w3-xlarge" style="margin-top:10px; margin-bottom:10px;"><%= title %></h1>
+        </div>
+        <div class="w3-col m4 l3 w3-right-align">
+          <%= link_to new_path, class: 'w3-button w3-green w3-round w3-small w3-hover-light-green w3-margin-top-small' do %>
+            <i class="fa fa-plus"></i> <%= new_text %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+
+    <% if local_assigns.key?(:search_form_partial) && search_form_partial.present? %>
+      <%= render partial: search_form_partial %>
+    <% end %>
+
+    <% if collection.present? %>
+      <ul class="w3-ul w3-hoverable">
+        <% collection.each do |item| %>
+          <%= render partial: item_partial, locals: { (item_partial.split('/').last.singularize.to_sym) => item } %>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="w3-container w3-padding w3-center">
+        <p><%= local_assigns.key?(:no_items_message) ? no_items_message : "No items found." %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

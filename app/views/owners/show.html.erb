@@ -24,15 +24,12 @@
     { label: "Entry Instructions", value: entry_instructions_value },
     { label: "Profile Created", value: @owner.created_at.present? ? @owner.created_at.strftime("%B %d, %Y") : nil }
   ]
-
-  # Determine the edit path based on the show_edit_button variable
-  owner_edit_path = (defined?(show_edit_button) && show_edit_button) ? edit_owner_path(@owner) : nil
 %>
 
 <%= render 'layouts/show_page',
            title: @owner.name,
            subtitle: @owner.neighborhood,
            attributes: attributes,
-           edit_path: owner_edit_path, # Use the conditional edit path
+           edit_path: edit_owner_path(@owner),
            resource_name: :owner,
-           show_blank_values: false %>
+           show_blank_values: false %> 

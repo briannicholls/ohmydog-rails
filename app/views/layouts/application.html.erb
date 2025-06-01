@@ -12,33 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   </head>
 
-
   <body class="w3-mobile">
-    <div  class="w3-bar w3-black topnav">
-      <nav>
-        <% if user_signed_in? %>
-          <% if current_user.customer? %>
-            <%= button_to "Walks", walks_path, method: :get, class: "w3-bar-item w3-button" %>
-          <% elsif current_user.employee? || current_user.admin? %>
-            <%= button_to "Users", users_path, method: :get, class: "w3-bar-item w3-button" %>
-            <%= button_to "Owners", owners_path, method: :get, class: "w3-bar-item w3-button" %>
-            <%= button_to "Pets", pets_path, method: :get, class: "w3-bar-item w3-button" %>
-            <%= button_to "Walks", walks_path, method: :get, class: "w3-bar-item w3-button" %>
-          <% end %>
-          <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "w3-bar-item w3-button" %>
-        <% else %>
-          <%= button_to "Home", root_path, method: :get, class: "w3-bar-item w3-button" %>
-          <%= button_to "Log In", new_user_session_path, method: :get, class: "w3-bar-item w3-button" %>
-          <%= button_to "Sign Up", new_user_registration_path, method: :get, class: "w3-bar-item w3-button" %>
-        <% end %>
-      </nav>
-    </div>
+    <%= render 'layouts/navigation' %>
 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= render 'layouts/flash_messages' %>
 
     <%= yield %>
-    <br><br>
 
     <% if user_signed_in? %>
       <div class="w3-bar w3-center w3-light-grey">
