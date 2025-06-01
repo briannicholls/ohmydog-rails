@@ -1,5 +1,19 @@
 require "active_support/core_ext/integer/time"
 
+class HeaderLogger
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    if Rails.env.production? && env['PATH_INFO'] == '/users/sign_in' && env['REQUEST_METHOD'] == 'POST'
+      headers_to_log = env.select {|k,v| k.start_with?('HTTP_') || k.in?(%w(CONTENT_TYPE X-CSRF-Token X-Forwarded-For X-Forwarded-Proto X-Forwarded-Port REMOTE_ADDR REQUEST_METHOD PATH_INFO SERVER_NAME HOST)) }
+      Rails.logger.info "SIGN_IN_REQUEST_HEADERS: #{headers_to_log.inspect}"
+    end
+    @app.call(env)
+  end
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -37,6 +51,9 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
   config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
 
+  # Insert custom middleware for logging headers
+  config.middleware.insert_before Rack::Sendfile, HeaderLogger
+
   # Change to "debug" to log everything (including potentially personally-identifiable information!).
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
@@ -57,7 +74,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "app.ohymydognyc.com" }
+  config.action_mailer.default_url_options = { host: "app.ohmydognyc.com", protocol: 'https' }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   config.action_mailer.delivery_method = :smtp
