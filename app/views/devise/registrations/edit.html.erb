@@ -1,43 +1,49 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= render layout: 'devise/shared/w3_card_outer_wrapper', locals: { title: "Edit #{resource_name.to_s.humanize}" } do %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "w3-container w3-padding-24" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <p>
+      <%= f.label :email, class: "w3-text-grey" %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w3-input w3-border w3-round" %>
+    </p>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="w3-panel w3-pale-blue w3-leftbar w3-border-blue w3-padding w3-margin-bottom w3-round">
+        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+      </div>
+    <% end %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <p>
+      <%= f.label :password, class: "w3-text-grey" %> <i class="w3-small w3-text-grey">(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: "w3-input w3-border w3-round" %>
+      <% if @minimum_password_length %>
+        <br />
+        <em class="w3-small w3-text-grey"><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation, class: "w3-text-grey" %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w3-input w3-border w3-round" %>
+    </p>
+
+    <p>
+      <%= f.label :current_password, class: "w3-text-grey" %> <i class="w3-small w3-text-grey">(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "current-password", class: "w3-input w3-border w3-round", required: true %>
+    </p>
+
+    <p class="w3-center w3-margin-top">
+      <%= f.submit "Update", class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
+    </p>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+  <div class="w3-container w3-padding-16 w3-border-top">
+    <h3 class="w3-text-grey">Cancel my account</h3>
+    <p class="w3-text-grey">Unhappy?</p>
+    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "w3-button w3-red w3-round w3-hover-pale-red" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
+  <div class="w3-container w3-center w3-padding-16 w3-border-top">
+    <%= link_to "Back", :back, class: "w3-text-indigo w3-hover-text-blue" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>

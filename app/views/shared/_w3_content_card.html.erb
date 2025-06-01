@@ -1,0 +1,30 @@
+<%# app/views/shared/_w3_content_card.html.erb %>
+<%#
+  Reusable W3.CSS content card wrapper.
+  Locals:
+    title: (Optional) String - Text to display in the black header. If blank, header is omitted.
+    max_width: (Optional) String - E.g., "500px", "800px". If not provided or "none", card takes available width.
+    title_bg_color: (Optional) String - E.g., "w3-blue", "w3-teal". Defaults to "w3-black".
+    content_padding: (Optional) String - E.g., "w3-padding-16", "w3-padding-large". Defaults to "w3-padding-24".
+%>
+<% card_max_width    = local_assigns.fetch(:max_width, "none") %>
+<% header_title      = local_assigns.fetch(:title, nil) %>
+<% title_bg_color    = local_assigns.fetch(:title_bg_color, "w3-black") %>
+<% content_padding   = local_assigns.fetch(:content_padding, "w3-padding-24") %>
+
+<% card_style = "overflow: hidden;" %>
+<% card_style += " max-width: #{card_max_width}; margin-left: auto; margin-right: auto;" unless card_max_width == "none" %>
+
+<div class="w3-container w3-padding-32">
+  <div class="w3-card-4 w3-round-large" style="<%= card_style %>">
+    <% if header_title.present? %>
+      <header class="w3-container w3-center <%= title_bg_color %> w3-padding-large w3-round-top-large">
+        <h1 class="w3-xxlarge"><%= header_title %></h1>
+      </header>
+    <% end %>
+
+    <div class="w3-container <%= content_padding %>">
+      <%= yield %>
+    </div>
+  </div>
+</div> 
