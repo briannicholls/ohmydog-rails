@@ -8,12 +8,18 @@
       <% if @minimum_password_length %>
         <em class="w3-small w3-text-grey">(<%= @minimum_password_length %> characters minimum)</em><br />
       <% end %>
-      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w3-input w3-border w3-round", required: true %>
+      <div class="w3-bar w3-round" style="border: 1px solid #ccc;">
+        <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "w3-bar-item w3-input", style: "width: calc(100% - 80px); border: none;", required: true %>
+        <button type="button" class="w3-bar-item w3-button w3-border-left" style="width: 80px;" onclick="togglePasswordVisibility(this)">Show</button>
+      </div>
     </p>
 
     <p>
       <%= f.label :password_confirmation, "Confirm new password", class: "w3-text-grey" %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w3-input w3-border w3-round", required: true %>
+      <div class="w3-bar w3-round" style="border: 1px solid #ccc;">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w3-bar-item w3-input", style: "width: calc(100% - 80px); border: none;", required: true %>
+        <button type="button" class="w3-bar-item w3-button w3-border-left" style="width: 80px;" onclick="togglePasswordVisibility(this)">Show</button>
+      </div>
     </p>
 
     <p class="w3-center w3-margin-top">
@@ -24,4 +30,17 @@
   <div class="w3-container w3-center w3-padding-16">
     <%= render "devise/shared/links" %>
   </div>
+
+  <script>
+    function togglePasswordVisibility(button) {
+      var passwordField = button.previousElementSibling;
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        button.textContent = "Hide";
+      } else {
+        passwordField.type = "password";
+        button.textContent = "Show";
+      }
+    }
+  </script>
 <% end %>
