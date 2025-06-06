@@ -5,8 +5,11 @@
   end
 
   attributes = [
+    { label: "Pet Type", value: @pet.pet_type },
+    { label: "Breed", value: @pet.breed },
     { label: "Birthday", value: @pet.birthday&.strftime("%B %d, %Y") },
     { label: "Gender", value: @pet.gender },
+    { label: "Temperament", value: @pet.temperament },
     { label: "Appearance", value: @pet.appearance },
     { label: "Notes", value: @pet.notes }
   ]
