@@ -21,7 +21,7 @@ class PetsController < ApplicationController
   end
 
   def create
-    @pet = Pet.create pet_params
+    @pet = Pet.create(processed_pet_params)
     if @pet.persisted?
       redirect_to pet_path(@pet)
     else
@@ -38,7 +38,7 @@ class PetsController < ApplicationController
   end
 
   def update
-    if @pet.update pet_params
+    if @pet.update(processed_pet_params)
       redirect_to pet_path(@pet)
     else
       flash.alert = @pet.errors.full_messages.to_sentence
@@ -52,10 +52,19 @@ class PetsController < ApplicationController
     @pet = Pet.find params[:id]
   end
 
+  def processed_pet_params
+    current_params = pet_params
+    if current_params[:pet_type] == 'Other'
+      current_params[:pet_type] = params[:pet_type_other].presence
+    end
+    current_params
+  end
+
   def pet_params
     params.require(:pet).permit(
       :name,
       :owner_id,
+      :pet_type,
       :gender,
       :breed,
       :birthday,

@@ -8,6 +8,8 @@ class Pet < ApplicationRecord
 
   scope :all_az, -> {all.order(:name)}
 
+  PET_TYPES = ["Dog", "Cat"].freeze
+
   def name_with_owner
     if owner
       "#{name} (#{owner.name})"

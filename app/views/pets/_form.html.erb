@@ -21,6 +21,22 @@
     <%= f.text_field :name, class: "w3-input w3-border w3-round", required: true %>
   </p>
 
+  <%
+    is_other = !Pet::PET_TYPES.include?(@pet.pet_type) && @pet.pet_type.present?
+    pet_type_selection = is_other ? "Other" : @pet.pet_type
+    other_pet_type_value = is_other ? @pet.pet_type : ""
+  %>
+
+  <p>
+    <%= f.label :pet_type, "Pet Type", class: "w3-text-grey" %>
+    <%= f.select :pet_type, Pet::PET_TYPES + ["Other"], { include_blank: 'Select Pet Type', selected: pet_type_selection }, { class: "w3-select w3-border w3-round", id: "pet_type_select" } %>
+  </p>
+
+  <p id="other_pet_type_container" style="display: <%= is_other ? 'block' : 'none' %>;">
+    <%= label_tag :pet_type_other, "Please specify", class: "w3-text-grey" %>
+    <%= text_field_tag :pet_type_other, other_pet_type_value, class: "w3-input w3-border w3-round" %>
+  </p>
+
   <p>
     <%= f.label :breed, "Breed", class: "w3-text-grey" %>
     <%= f.text_field :breed, class: "w3-input w3-border w3-round" %>
@@ -62,3 +78,27 @@
     <%= f.submit (@pet.new_record? ? "Create Pet" : "Update Pet"), class: "w3-button w3-black w3-round-large w3-hover-dark-grey w3-padding-large" %>
   </p>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const petTypeSelect = document.getElementById('pet_type_select');
+    if (!petTypeSelect) return;
+
+    const otherPetTypeContainer = document.getElementById('other_pet_type_container');
+    const otherPetTypeInput = document.querySelector('#other_pet_type_container input');
+
+    function toggleOtherField() {
+      if (petTypeSelect.value === 'Other') {
+        otherPetTypeContainer.style.display = 'block';
+      } else {
+        otherPetTypeContainer.style.display = 'none';
+        if (otherPetTypeInput) {
+          otherPetTypeInput.value = '';
+        }
+      }
+    }
+
+    toggleOtherField();
+    petTypeSelect.addEventListener('change', toggleOtherField);
+  });
+</script>
