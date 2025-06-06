@@ -16,8 +16,11 @@ class Owner < ApplicationRecord
     "#{fname} #{lname}"
   end
 
-  def update_neighborhood
-    self.neighborhood = NycNeighborhoods.neighborhood(zip_code)
-  end
+  private
 
+  def update_neighborhood
+    if neighborhood.blank? && will_save_change_to_zip_code?
+      self.neighborhood = NycNeighborhoods.neighborhood(zip_code)
+    end
+  end
 end
