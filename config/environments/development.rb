@@ -40,12 +40,12 @@ Rails.application.configure do
   # Set delivery method to SMTP and configure SMTP settings for Mailtrap
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'sandbox.smtp.mailtrap.io',
+    address:              "sandbox.smtp.mailtrap.io",
     port:                 587,
-    domain:               'app.ohmydognyc.com',
+    domain:               "app.ohmydognyc.com",
     user_name:            Rails.application.credentials.dig(:smtp, :username),
     password:             Rails.application.credentials.dig(:smtp, :password),
-    authentication:       'plain',
+    authentication:       "plain",
     enable_starttls_auto: true
   }
 
@@ -66,6 +66,12 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+
+  # Highlight code that triggered redirect in logs.
+  config.action_dispatch.verbose_redirect_logs = true
+
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

@@ -6,8 +6,8 @@ class HeaderLogger
   end
 
   def call(env)
-    if Rails.env.production? && env['PATH_INFO'] == '/users/sign_in' && env['REQUEST_METHOD'] == 'POST'
-      headers_to_log = env.select {|k,v| k.start_with?('HTTP_') || k.in?(%w(CONTENT_TYPE X-CSRF-Token X-Forwarded-For X-Forwarded-Proto X-Forwarded-Port REMOTE_ADDR REQUEST_METHOD PATH_INFO SERVER_NAME HOST)) }
+    if Rails.env.production? && env["PATH_INFO"] == "/users/sign_in" && env["REQUEST_METHOD"] == "POST"
+      headers_to_log = env.select { |k, _v| k.start_with?("HTTP_") || k.in?(%w[CONTENT_TYPE X-CSRF-Token X-Forwarded-For X-Forwarded-Proto X-Forwarded-Port REMOTE_ADDR REQUEST_METHOD PATH_INFO SERVER_NAME HOST]) }
       Rails.logger.info "SIGN_IN_REQUEST_HEADERS: #{headers_to_log.inspect}"
     end
     @app.call(env)
@@ -74,16 +74,16 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "app.ohmydognyc.com", protocol: 'https' }
+  config.action_mailer.default_url_options = { host: "app.ohmydognyc.com", protocol: "https" }
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via bin/rails credentials:edit.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'api',
+    user_name: "api",
     password: Rails.application.credentials.dig(:smtp, :password),
-    address: 'live.smtp.mailtrap.io',
-    host: 'live.smtp.mailtrap.io',
-    port: '587',
+    address: "live.smtp.mailtrap.io",
+    host: "live.smtp.mailtrap.io",
+    port: "587",
     authentication: :login
   }
 
