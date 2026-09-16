@@ -1,14 +1,12 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_one :owner
-  has_many :walks_as_walker, class_name: 'Walk', foreign_key: 'user_id'
+  has_many :walks_as_walker, class_name: "Walk", foreign_key: "user_id"
   has_many :pets, through: :walks
 
-  #include ActiveModel::Validations
   validates :fname, presence: true
   validates :lname, presence: true
   validates :email, presence: true, uniqueness: true
@@ -20,30 +18,52 @@ class User < ApplicationRecord
   end
 
   def admin?
-    self.role == 'admin'
+    role == "admin"
   end
 
   def employee?
-    self.role == 'employee'
+    role == "employee"
   end
 
   def customer?
-    self.role == 'customer'
+    role == "customer"
   end
 
   def active?
-    self.status == 'active'
+    status == "active"
   end
 
   def inactive?
-    self.status == 'inactive'
+    status == "inactive"
+  end
+
+  def self.from_omniauth(auth)
+    info = auth.info
+    first_name = info.first_name.presence || info.name.to_s.split.first
+    last_name = info.last_name.presence || info.name.to_s.split[1..].to_a.join(" ").presence || first_name
+
+    user = find_by(provider: auth.provider, uid: auth.uid) || find_by(email: info.email)
+    if user
+      user.assign_attributes(provider: auth.provider, uid: auth.uid)
+      user.fname = first_name if user.fname.blank?
+      user.lname = last_name if user.lname.blank?
+      user.save
+      user
+    else
+      create(
+        email: info.email,
+        fname: first_name,
+        lname: last_name,
+        password: Devise.friendly_token[0, 20],
+        provider: auth.provider,
+        uid: auth.uid
+      )
+    end
   end
 
   private
 
   def link_owner
-    if self.owner.nil?
-      self.owner = Owner.find_by(email: self.email)
-    end
+    self.owner = Owner.find_by(email: email) if owner.nil?
   end
 end

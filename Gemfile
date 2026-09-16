@@ -1,68 +1,49 @@
-source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+source "https://rubygems.org"
 
-ruby '3.2.3'
+ruby "3.4.10"
 
-gem 'rails', '~> 8.0.2'
-gem 'pg'
-# Use Puma as the app server
-gem 'puma', '~> 4.1'
-# Use SCSS for stylesheets
-# gem 'sass-rails', '>= 6'
-
-# Modern asset pipeline (Node-free approach)
-gem 'propshaft'
-gem 'importmap-rails'
+gem "rails", "~> 8.1.3"
+gem "pg"
+gem "puma", ">= 5.0"
+gem "propshaft"
+gem "importmap-rails"
 gem "turbo-rails"
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem "stimulus-rails"
+gem "jbuilder"
+# Rails 8.1.3.1 cookie decoding is incompatible with json 3.x.
+gem "json", "~> 2.13"
 
 gem "combined_time_select", "~> 2.0.0"
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+gem "dotenv-rails"
 
-gem 'omniauth-google-oauth2'
-gem 'dotenv-rails'
+gem "bootsnap", require: false
 
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+gem "nyc_neighborhoods"
+
+gem "aws-sdk-s3", require: false
+
+gem "devise"
+
+gem "after_party", "~> 2.0"
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem "bundler-audit", require: false
+  gem "brakeman", require: false
+  gem "pry"
+  gem "faker"
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "web-console"
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem "capybara"
+  gem "selenium-webdriver"
 end
-
-group :development, :test do
-  gem 'pry'
-  gem 'faker'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem 'nyc_neighborhoods'
-
-gem 'aws-sdk-s3', require: false
-
-gem 'devise'
-
-gem "after_party", "~> 2.0"

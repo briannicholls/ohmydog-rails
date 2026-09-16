@@ -9,20 +9,17 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:fname, :lname, :email, :password, :password_confirmation, :current_password])
   end
 
-  # Devise: Where to redirect users after sign in.
   def after_sign_in_path_for(resource_or_scope)
     walks_path
   end
 
-  # Devise: Where to redirect users after sign out.
   def after_sign_out_path_for(resource_or_scope)
-    root_path # welcome page
+    root_path
   end
 
   private
 
   def set_current_user
-    Thread.current[:current_user] = current_user # current_user from Devise
+    Current.user = current_user
   end
-
 end

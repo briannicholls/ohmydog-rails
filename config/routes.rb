@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  get "up" => "rails/health#show", as: :rails_health_check
+
   resources :walks do
-    get 'all', on: :collection
+    get "all", on: :collection
     resources :pets, only: [:show]
   end
 
@@ -12,8 +15,5 @@ Rails.application.routes.draw do
   resources :users
   resources :pets
 
-  get '/auth/google_oauth2/callback', to: 'static#google_login'
-
-  root 'static#welcome'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root "static#welcome"
 end

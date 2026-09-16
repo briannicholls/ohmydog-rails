@@ -6,8 +6,8 @@ class Walk < ApplicationRecord
   scope :completed, -> { where(completed?: true) }
 
   default_scope do
-    user = Thread.current[:current_user]
-    if user && user.customer?
+    user = Current.user
+    if user&.customer?
       joins(pet: :owner).where(owners: { id: user.owner&.id })
     else
       all
